@@ -22,7 +22,7 @@ mongoose
     });
   })
   .catch(err => {
-    console.log("Databse not connected");
+    console.log("Database not connected");
 
     console.error(err);
   });
