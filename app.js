@@ -1,19 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const authRouter = require("./routes/authRouter");
+
 require("dotenv").config();
-console.log(process.env.PASSWORD);
 
 const keys = require("./config/keys");
+const authRouter = require("./routes/api/authRouter");
+
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(bodyParser({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
 
 mongoose
   .connect(keys.mongoURI, { useNewUrlParser: true })
