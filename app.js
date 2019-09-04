@@ -9,6 +9,8 @@ const passport = require("./config/passport");
 require("dotenv").config();
 
 const keys = require("./config/keys");
+const authRouter = require("./routes/api/authRouter");
+
 
 const app = express();
 
