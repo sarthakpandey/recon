@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const passport = require("../config/passport");
 
 const registerController = async (req, res) => {
 
@@ -28,4 +29,23 @@ const registerController = async (req, res) => {
   }
 };
 
-module.exports = { registerController };
+const loginController = (req, res, next) => {
+  passport.authenticate("local", (err, user) => {
+    if (err) {
+      return res.send(err);
+    }
+    if (!user) {
+      return res.status(404).json({ error: "No user found" });
+    } else {
+      req.logIn(user, err => {
+        if (!err) {
+          return res.json(user);
+        } else {
+          return res.json(err);
+        }
+      });
+    }
+  })(req, res, next);
+};
+
+module.exports = { registerController, loginController };
