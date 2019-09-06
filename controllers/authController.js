@@ -2,8 +2,16 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require("../config/passport");
 
-const registerController = async (req, res) => {
+const authStatusController = async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    console.log("logged in");
+    return next();
+  } else {
+    res.send("Not logged in");
+  }
+};
 
+const registerController = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -22,9 +30,8 @@ const registerController = async (req, res) => {
     await newUser.save();
 
     return res.json(newUser);
-
   } catch (err) {
-    console.log('in error',err);
+    console.log("in error", err);
     res.json(err);
   }
 };
@@ -48,4 +55,14 @@ const loginController = (req, res, next) => {
   })(req, res, next);
 };
 
-module.exports = { registerController, loginController };
+const logoutController = (req, res) => {
+  req.logout();
+  return res.send("Logged out successfully");
+};
+
+module.exports = {
+  authStatusController,
+  registerController,
+  loginController,
+  logoutController
+};

@@ -12,8 +12,19 @@ const keys = require("./config/keys");
 
 const app = express();
 
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    secret: "Rab ke bande"
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api/auth", authRouter);
 
@@ -27,20 +38,6 @@ mongoose
 
     console.error(err);
   });
-
-app.use(
-  session({
-    resave: false,
-    saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    secret: "Rab ke bande"
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use("/auth", authRouter);
 
 const PORT = process.env.PORT || 5000;
 
