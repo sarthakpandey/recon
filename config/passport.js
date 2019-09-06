@@ -15,7 +15,6 @@ passport.deserializeUser((id, done) => {
 
 passport.use(
   new LocalStrategy({ usernameField: "email" }, (username, password, done) => {
-    console.log(password);
     User.findOne({ email: username }, async (err, user) => {
       if (!user) {
         return done(null, false, { message: "Invalid Username or password" });

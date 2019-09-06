@@ -3,8 +3,9 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const MongoStore = require("connect-mongo")(session);
-const authRouter = require("./routes/api/authRouter");
 const passport = require("./config/passport");
+const authRouter = require("./routes/api/authRouter");
+const userRouter = require("./routes/api/userRouter");
 
 require("dotenv").config();
 
@@ -27,6 +28,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 mongoose
   .connect(keys.mongoURI, { useNewUrlParser: true })
