@@ -10,7 +10,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   User.findById(id, (err, user) => {
     done(err, user);
-  });
+  }).select("-password");
 });
 
 passport.use(

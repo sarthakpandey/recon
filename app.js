@@ -6,6 +6,9 @@ const MongoStore = require("connect-mongo")(session);
 const passport = require("./config/passport");
 const authRouter = require("./routes/api/authRouter");
 const userRouter = require("./routes/api/userRouter");
+const friendRouter = require("./routes/api/friendRouter");
+const postRouter = require("./routes/api/postRouter");
+const profileRouter = require("./routes/api/profileRouter");
 
 require("dotenv").config();
 
@@ -29,20 +32,24 @@ app.use(passport.session());
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/profile", profileRouter);
+app.use("/api/post", postRouter);
+app.use("/api/friend", friendRouter);
 
 mongoose
   .connect(keys.mongoURI, { useNewUrlParser: true })
   .then(() => {
     console.log("DB connected");
+
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, () => {
+      console.log(`Server started at ${PORT}`);
+    });
+    
   })
   .catch(err => {
     console.log("Database not connected");
 
     console.error(err);
   });
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server started at ${PORT}`);
-});

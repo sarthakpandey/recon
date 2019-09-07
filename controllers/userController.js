@@ -1,9 +1,9 @@
-const userStatusController = (req, res) => {
+const currentUserController = (req, res) => {
   if (req.isAuthenticated()) {
     return res.json(req.user);
   } else {
-    return res.send("No user found");
+    return res.send("Log in first");
   }
 };
 
-module.exports = { userStatusController };
+module.exports = { currentUserController };

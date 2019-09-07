@@ -7,7 +7,7 @@ const authStatusController = async (req, res, next) => {
     console.log("logged in");
     return next();
   } else {
-    res.send("Not logged in");
+    return res.send("Not logged in");
   }
 };
 
