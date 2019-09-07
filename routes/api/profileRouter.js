@@ -6,10 +6,15 @@ const {
   profileByUserIdController,
   profileAllController,
   profileCurrentPostController,
-  profileCurrentGetController
+  profileCurrentGetController,
+  deleteAccountController,
+  experiencePostController,
+  educationPostController,
+  experienceDeleteController,
+  educationDeleteController
 } = require("../../controllers/profileController");
 
-const auth = require('../../controllers/authController').authStatusController;
+const auth = require("../../controllers/authController").authStatusController;
 
 router.get("/test", testController);
 
@@ -22,5 +27,15 @@ router.get("/all", profileAllController);
 router.get("/", auth, profileCurrentGetController);
 
 router.post("/", auth, profileCurrentPostController);
+
+router.delete("/", auth, deleteAccountController);
+
+router.post("/experience", auth, experiencePostController);
+
+router.post("/eductaion", auth, educationPostController);
+
+router.delete("/experience/:exp_id", auth, experienceDeleteController);
+
+router.delete("/education/:edu_id", auth, educationDeleteController);
 
 module.exports = router;

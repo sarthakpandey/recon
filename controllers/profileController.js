@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const Profile = require("../models/Profile");
+const Post = require("../models/Post");
+const Friend = require("../models/Friend");
 
 const testController = (req, res) => {
   res.json({
@@ -82,6 +84,9 @@ const profileCurrentGetController = async (req, res) => {
 
 const profileCurrentPostController = async (req, res) => {
   try {
+    
+    req.body.skills = req.body.skills.split(",").map(item => item.trim());
+
     let profile = await Profile.findOne({ user: req.user._id });
 
     if (profile) {
@@ -109,11 +114,110 @@ const profileCurrentPostController = async (req, res) => {
   }
 };
 
+const deleteAccountController = async (req, res) => {
+  try {
+    await Post.deleteMany({ user: req.user._id });
+
+    await Profile.findOneAndRemove({ user: req.user._id });
+
+    await Friend.findOneAndRemove({ user: req.user._id });
+
+    await User.findOneAndRemove({ _id: req.user._id });
+
+    res.json({
+      success: "Deleted the account"
+    });
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
+};
+
+const experiencePostController = async (req, res) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user._id });
+
+    const newExp = req.body;
+
+    profile.experience.unshift(newExp);
+
+    profile = await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
+};
+
+const educationPostController = async (req, res) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user._id });
+
+    const newEdu = req.body;
+
+    profile.education.unshift(newEdu);
+
+    profile = await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
+};
+
+const experienceDeleteController = async (req, res) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user._id });
+
+    const removeIndex = profile.experience
+      .map(item => item._id.toString())
+      .indexOf(req.params.exp_id);
+
+    if (removeIndex === -1) {
+      return res.status(500).json({ err: "Server error" });
+    }
+
+    profile.experience.splice(removeIndex, 1);
+
+    profile = await profile.save();
+
+    return res.status(200).json(profile);
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
+};
+
+const educationDeleteController = async (req, res) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user._id });
+
+    const removeIndex = profile.education
+      .map(item => item._id.toString())
+      .indexOf(req.params.exp_id);
+
+    if (removeIndex === -1) {
+      return res.status(500).json({ err: "Server error" });
+    }
+
+    profile.education.splice(removeIndex, 1);
+
+    profile = await profile.save();
+
+    return res.status(200).json(profile);
+  } catch (err) {
+    res.status(404).json({ error: err });
+  }
+};
+
 module.exports = {
   testController,
   profileByHandleController,
   profileByUserIdController,
   profileAllController,
   profileCurrentGetController,
-  profileCurrentPostController
+  profileCurrentPostController,
+  deleteAccountController,
+  experiencePostController,
+  educationPostController,
+  experienceDeleteController,
+  educationDeleteController
 };
