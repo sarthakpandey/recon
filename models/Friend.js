@@ -61,6 +61,24 @@ const FriendSchema = new Schema({
       }
     }
   ],
+  recon: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "users"
+      },
+      name: {
+        type: String
+      },
+      avatar: {
+        type: String
+      },
+      date: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
   date: {
     type: Date,
     default: Date.now

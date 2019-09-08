@@ -1,9 +1,5 @@
 const currentUserController = (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.json(req.user);
-  } else {
-    return res.send("Log in first");
-  }
+  return res.json(req.user);
 };
 
 module.exports = { currentUserController };
