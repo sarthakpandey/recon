@@ -6,7 +6,6 @@ const MongoStore = require("connect-mongo")(session);
 const passport = require("./config/passport");
 const authRouter = require("./routes/api/authRouter");
 const userRouter = require("./routes/api/userRouter");
-const friendRouter = require("./routes/api/friendRouter");
 const postRouter = require("./routes/api/postRouter");
 const profileRouter = require("./routes/api/profileRouter");
 
@@ -34,7 +33,6 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/post", postRouter);
-app.use("/api/friend", friendRouter);
 
 mongoose
   .connect(keys.mongoURI, { useNewUrlParser: true })

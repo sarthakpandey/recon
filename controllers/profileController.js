@@ -1,7 +1,6 @@
 const User = require("../models/User");
 const Profile = require("../models/Profile");
 const Post = require("../models/Post");
-const Friend = require("../models/Friend");
 
 const testController = (req, res) => {
   res.json({
@@ -85,7 +84,8 @@ const profileCurrentGetController = async (req, res) => {
 const profileCurrentPostController = async (req, res) => {
   try {
     
-    req.body.skills = req.body.skills.split(",").map(item => item.trim());
+    if (req.body.skills)
+      req.body.skills = req.body.skills.split(",").map(item => item.trim());
 
     let profile = await Profile.findOne({ user: req.user._id });
 
@@ -119,8 +119,6 @@ const deleteAccountController = async (req, res) => {
     await Post.deleteMany({ user: req.user._id });
 
     await Profile.findOneAndRemove({ user: req.user._id });
-
-    await Friend.findOneAndRemove({ user: req.user._id });
 
     await User.findOneAndRemove({ _id: req.user._id });
 

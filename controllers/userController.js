@@ -169,7 +169,7 @@ const acceptRequestController = async (req, res) => {
     await acceptor.save();
     await sender.save();
 
-    res.json(acceptor.reqRecieved);
+    res.json(acceptor.connectedPeople);
   } catch (err) {
     res.json({ err });
   }
