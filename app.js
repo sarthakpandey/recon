@@ -15,6 +15,17 @@ const keys = require("./config/keys");
 
 const app = express();
 
+mongoose
+  .connect(keys.mongoURI, { useNewUrlParser: true })
+  .then(() => {
+    console.log("DB connected");
+  })
+  .catch(err => {
+    console.log("Database not connected");
+
+    console.error(err);
+  });
+
 app.use(
   session({
     resave: false,
@@ -34,20 +45,8 @@ app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/post", postRouter);
 
-mongoose
-  .connect(keys.mongoURI, { useNewUrlParser: true })
-  .then(() => {
-    console.log("DB connected");
+const PORT = process.env.PORT || 5000;
 
-    const PORT = process.env.PORT || 5000;
-
-    app.listen(PORT, () => {
-      console.log(`Server started at ${PORT}`);
-    });
-    
-  })
-  .catch(err => {
-    console.log("Database not connected");
-
-    console.error(err);
-  });
+app.listen(PORT, () => {
+  console.log(`Server started at ${PORT}`);
+});
