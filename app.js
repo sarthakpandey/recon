@@ -30,6 +30,7 @@ app.use(
   session({
     resave: false,
     saveUninitialized: true,
+    unset: "destroy",
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
     secret: "Rab ke bande"
   })

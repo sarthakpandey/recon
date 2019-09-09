@@ -57,6 +57,7 @@ const loginController = (req, res, next) => {
 
 const logoutController = (req, res) => {
   req.logout();
+  req.session = null;
   return res.send("Logged out successfully");
 };
 
