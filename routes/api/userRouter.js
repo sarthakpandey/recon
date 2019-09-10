@@ -10,7 +10,8 @@ const {
   unsendRequestController,
   acceptRequestController,
   ignoreRequestController,
-  isFriendController
+  isFriendController,
+  isSentController
 } = require("../../controllers/userController");
 
 const auth = require("../../controllers/authController").authStatusController;
@@ -34,5 +35,7 @@ router.post("/accept/:sender_id", auth, acceptRequestController);
 router.delete("/ignore/:sender_id", auth, ignoreRequestController);
 
 router.get("/isFriend/:id", auth, isFriendController);
+
+router.get("/isSent/:id", auth, isSentController);
 
 module.exports = router;

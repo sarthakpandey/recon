@@ -234,6 +234,26 @@ const isFriendController = async (req, res) => {
   }
 };
 
+const isSentController = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const user = await User.findById(req.user._id);
+
+    const idx = user.reqSent
+      .map(item => item.user.toString())
+      .indexOf(id.toString());
+
+    if (idx === -1) {
+      return res.json({ isSent: false });
+    } else {
+      return res.json({ isSent: true });
+    }
+  } catch (err) {
+    res.json({ err });
+  }
+};
+
 module.exports = {
   currentUserController,
   getRequestSentController,
@@ -244,5 +264,6 @@ module.exports = {
   unsendRequestController,
   acceptRequestController,
   ignoreRequestController,
-  isFriendController
+  isFriendController,
+  isSentController
 };
