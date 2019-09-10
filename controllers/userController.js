@@ -214,41 +214,24 @@ const ignoreRequestController = async (req, res) => {
   }
 };
 
-const isFriendController = async (req, res) => {
+const checkFriendController = async (req, res) => {
   try {
     const id = req.params.id;
 
     const user = await User.findById(req.user._id);
 
-    const idx = user.connectedPeople
+    const idxFriend = user.connectedPeople
       .map(item => item.user.toString())
       .indexOf(id.toString());
 
-    if (idx === -1) {
-      return res.json({ isFriend: false });
-    } else {
-      return res.json({ isFriend: true });
-    }
-  } catch (err) {
-    res.json({ err });
-  }
-};
-
-const isSentController = async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    const user = await User.findById(req.user._id);
-
-    const idx = user.reqSent
+    const idxSent = user.reqSent
       .map(item => item.user.toString())
       .indexOf(id.toString());
 
-    if (idx === -1) {
-      return res.json({ isSent: false });
-    } else {
-      return res.json({ isSent: true });
-    }
+    return res.json({
+      friend: idxFriend !== -1,
+      sent: idxSent !== -1
+    });
   } catch (err) {
     res.json({ err });
   }
@@ -264,6 +247,5 @@ module.exports = {
   unsendRequestController,
   acceptRequestController,
   ignoreRequestController,
-  isFriendController,
-  isSentController
+  checkFriendController
 };
