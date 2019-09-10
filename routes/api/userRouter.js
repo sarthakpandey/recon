@@ -10,12 +10,15 @@ const {
   unsendRequestController,
   acceptRequestController,
   ignoreRequestController,
-  checkFriendController
+  checkFriendController,
+  getAllUsersController
 } = require("../../controllers/userController");
 
 const auth = require("../../controllers/authController").authStatusController;
 
 router.get("/me", auth, currentUserController);
+
+router.get("/list", auth, getAllUsersController);
 
 router.get("/sent", auth, getRequestSentController);
 

@@ -4,6 +4,15 @@ const currentUserController = (req, res) => {
   return res.json(req.user);
 };
 
+const getAllUsersController = async (req, res) => {
+  try {
+    const users = await User.find().select("-password");
+    res.status(200).json({ users, count: users.length });
+  } catch (err) {
+    res.json({ err });
+  }
+};
+
 const getRequestSentController = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
@@ -247,5 +256,6 @@ module.exports = {
   unsendRequestController,
   acceptRequestController,
   ignoreRequestController,
-  checkFriendController
+  checkFriendController,
+  getAllUsersController
 };

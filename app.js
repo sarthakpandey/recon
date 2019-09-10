@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -14,6 +15,7 @@ require("dotenv").config();
 const keys = require("./config/keys");
 
 const app = express();
+app.use(cors({ origin: true,  credentials: true }));
 
 mongoose
   .connect(keys.mongoURI, { useNewUrlParser: true })
