@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import api from "../apis/api";
+import axios from 'axios';
 
 const App = () => {
-  api.post("/auth/login", { email: "prateek@recon.com", password: "prateek" });
+  axios.post("/api/auth/login", { email: "prateek@recon.com", password: "prateek" });
 
   useEffect(() => {});
   return <>here</>;
