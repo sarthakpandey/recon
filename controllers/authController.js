@@ -37,9 +37,8 @@ const registerController = async (req, res) => {
 };
 
 const loginController = (req, res, next) => {
-  console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    return res.json(req.user);
+    return res.status(403).send("Already authenticated");
   }
 
   passport.authenticate("local", (err, user) => {
