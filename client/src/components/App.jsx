@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
-import axios from 'axios';
+import React from "react";
+import Routing from "./HOC/Routing";
 
 const App = () => {
-  axios.post("/api/auth/login", { email: "prateek@recon.com", password: "prateek" });
-
-  useEffect(() => {});
-  return <>here</>;
+  return <Routing />;
 };
 
 export default App;
