@@ -1,11 +1,15 @@
 import React from "react";
-import { Layout, Row, Col, Input, Button, Form } from "antd";
+import { Layout, Row, Col, Input, Button, Form, message } from "antd";
+import { loginUser } from "../../actions";
+import { useDispatch } from "react-redux";
 const Navbar = props => {
+  const dispatch = useDispatch();
   const onLogin = e => {
     e.preventDefault();
-    props.form.validateFields((err, formProps) => {
+    props.form.validateFields(async (err, formProps) => {
       if (!err) {
-        console.log(formProps);
+        await dispatch(loginUser(formProps));
+        message.success("Logged in");
       }
     });
   };

@@ -50,7 +50,7 @@ const loginController = (req, res, next) => {
     } else {
       req.logIn(user, err => {
         if (!err) {
-          return res.json(user);
+          return res.json({ user });
         } else {
           return res.json(err);
         }
