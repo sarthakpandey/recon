@@ -16,3 +16,13 @@ export const loginUser = values => async dispatch => {
     console.log(err);
   }
 };
+
+export const registerUser = values => async dispatch => {
+  try {
+    const { email, password } = values;
+    await axios.post("/api/auth/register", values);
+    dispatch(loginUser({ email, password }));
+  } catch (err) {
+    console.log(err);
+  }
+};
