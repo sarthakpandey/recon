@@ -12,7 +12,7 @@ const authStatusController = async (req, res, next) => {
 };
 
 const registerController = async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   const user = await User.findOne({ email });
 
@@ -24,14 +24,11 @@ const registerController = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    console.log(hashedPassword);
-
-    const newUser = new User({ ...req.body, password: hashedPassword });
+    const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
 
     return res.json(newUser);
   } catch (err) {
-    console.log("in error", err);
     res.json(err);
   }
 };
