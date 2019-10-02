@@ -1,3 +1,9 @@
-import { loginUser, setUser, registerUser } from "./authActions";
+import {
+  loginUser,
+  setUser,
+  registerUser,
+  getUser,
+  logoutUser
+} from "./authActions";
 
-export { loginUser, setUser, registerUser };
+export { loginUser, setUser, registerUser, getUser, logoutUser };
