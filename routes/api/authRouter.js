@@ -3,11 +3,12 @@ const {
   registerController,
   loginController,
   logoutController,
-  authStatusController
+  authStatusController,
+  authCheckController
 } = require("../../controllers/authController");
 
 router.post("/register", registerController);
 router.post("/login", loginController);
-router.get("/logout", authStatusController, logoutController);
+router.get("/logout", authCheckController, logoutController);
 router.get("/status", authStatusController);
 module.exports = router;

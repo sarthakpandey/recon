@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Elements/Navbar";
 import { Card, Form, Input, Row, Col, Button, message } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../actions";
 
 const Register = props => {
@@ -12,7 +12,9 @@ const Register = props => {
       const { name, email, password, confirm_password } = formProps;
       if (!err) {
         if (password === confirm_password) {
-          await dispatch(registerUser({ name, email, password }));
+          await dispatch(
+            registerUser({ name, email, password }, props.history)
+          );
           message.success("Registered successfully");
         } else {
           return message.error("Passwords do not match");

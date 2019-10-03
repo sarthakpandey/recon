@@ -26,11 +26,12 @@ export const logoutUser = () => async dispatch => {
   }
 };
 
-export const registerUser = values => async dispatch => {
+export const registerUser = (values, history) => async dispatch => {
   try {
     const { email, password } = values;
     await axios.post("/api/auth/register", values);
-    dispatch(loginUser({ email, password }));
+    await dispatch(loginUser({ email, password }));
+    history.push("/create-profile");
   } catch (err) {
     console.log(err);
   }

@@ -2,7 +2,16 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require("../config/passport");
 
-const authStatusController = async (req, res, next) => {
+const authStatusController = async (req, res) => {
+  if (req.isAuthenticated()) {
+    console.log("logged in");
+    return res.json({ user: req.user });
+  } else {
+    return res.send("Not logged in");
+  }
+};
+
+const authCheckController = async (req, res, next) => {
   if (req.isAuthenticated()) {
     console.log("logged in");
     return next();
@@ -64,6 +73,7 @@ const logoutController = (req, res) => {
 
 module.exports = {
   authStatusController,
+  authCheckController,
   registerController,
   loginController,
   logoutController
