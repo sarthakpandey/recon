@@ -75,7 +75,7 @@ const Navbar = props => {
                       rules: [
                         { required: true, message: "Password is required" }
                       ]
-                    })(<Input placeholder="Password" type="password" />)}
+                    })(<Input.Password placeholder="Password" />)}
                   </Form.Item>
                 </Col>
                 <Col span={2} style={{ textAlign: "right" }}>

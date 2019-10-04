@@ -57,7 +57,7 @@ const Register = props => {
               <Form.Item label="Password">
                 {getFieldDecorator("password", {
                   rules: [{ required: true, message: "Password is required" }]
-                })(<Input size="large" type="password" />)}
+                })(<Input.Password size="large" />)}
               </Form.Item>
               <Form.Item label="Confirm Password">
                 {getFieldDecorator("confirm_password", {
