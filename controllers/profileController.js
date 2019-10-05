@@ -83,7 +83,6 @@ const profileCurrentGetController = async (req, res) => {
 
 const profileCurrentPostController = async (req, res) => {
   try {
-    
     if (req.body.skills)
       req.body.skills = req.body.skills.split(",").map(item => item.trim());
 
@@ -95,6 +94,7 @@ const profileCurrentPostController = async (req, res) => {
         { $set: req.body },
         { new: true }
       );
+      console.log(req.body, profile);
       return res.json(profile);
     }
 
@@ -103,9 +103,11 @@ const profileCurrentPostController = async (req, res) => {
     profile = await Profile.findOne({ handle });
 
     if (profile) {
+      console.log(req.body, profile);
+
       return res.status(400).json({ error: "Handle taken" });
     }
-
+    console.log(req.body);
     profile = await new Profile(req.body).save();
 
     res.json(profile);

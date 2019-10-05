@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import {
   Row,
   Col,
@@ -8,19 +9,35 @@ import {
   Form,
   Input,
   Button,
-  Select
+  Select,
+  message
 } from "antd";
 import { useSelector } from "react-redux";
 import Container from "./Elements/Container";
+import { BRANCHES, LOCATIONS } from "../utils";
+import { createProfile } from "../actions";
 
 const CreateProfile = ({ form }) => {
   const user = useSelector(state => state.auth.user);
+
+  const onSubmit = e => {
+    e.preventDefault();
+    form.validateFields(async (err, formProps) => {
+      const data = _.pickBy(formProps, _.identity);
+      try {
+        await createProfile(data);
+        message.success("Profile updated successfully");
+      } catch (err) {
+        return message.error("Internal Server Error");
+      }
+    });
+  };
 
   const { getFieldDecorator } = form;
   return (
     <Container>
       <Card>
-        <Form>
+        <Form onSubmit={onSubmit}>
           <Row type="flex" align="middle">
             <Col span={10}>
               <div
@@ -40,6 +57,7 @@ const CreateProfile = ({ form }) => {
               </Form.Item>
             </Col>
           </Row>
+
           <Row type="flex" justify="space-between">
             <Col span={18}>
               <Form.Item>
@@ -82,6 +100,33 @@ const CreateProfile = ({ form }) => {
               </Form.Item>
             </Col>
             <Col span={24}>
+              <Form.Item>
+                {getFieldDecorator("skills", {
+                  rules: [
+                    { required: true, message: "Atleast one skill is required" }
+                  ]
+                })(
+                  <Input
+                    size="large"
+                    placeholder="Add skills (separated by commas) "
+                  />
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item>
+                {getFieldDecorator("location")(
+                  <Select size="large" placeholder="Select your location">
+                    {LOCATIONS.map(location => (
+                      <Select.Option key={location} value={location}>
+                        {location}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                )}
+              </Form.Item>
+            </Col>
+            <Col span={24}>
               <Card title="Academic Details">
                 <Form.Item>
                   {getFieldDecorator("collegeID")(
@@ -90,7 +135,13 @@ const CreateProfile = ({ form }) => {
                 </Form.Item>
                 <Form.Item>
                   {getFieldDecorator("branch")(
-                    <Input size="large" placeholder="Enter your Branch" />
+                    <Select size="large" placeholder="Select your Branch">
+                      {BRANCHES.map(branch => (
+                        <Select.Option key={branch} value={branch}>
+                          {branch}
+                        </Select.Option>
+                      ))}
+                    </Select>
                   )}
                 </Form.Item>
                 <Form.Item>
@@ -103,6 +154,15 @@ const CreateProfile = ({ form }) => {
                 </Form.Item>
               </Card>
             </Col>
+            <Button
+              htmlType="submit"
+              type="primary"
+              shape="round"
+              size="large"
+              style={{ marginTop: 25 }}
+            >
+              Create Profile
+            </Button>
           </Row>
         </Form>
       </Card>
