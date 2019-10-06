@@ -12,12 +12,13 @@ import {
   Select,
   message
 } from "antd";
+import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Container from "./Elements/Container";
 import { BRANCHES, LOCATIONS } from "../utils";
 import { createProfile } from "../actions";
 
-const CreateProfile = ({ form }) => {
+const CreateProfile = ({ form, history }) => {
   const user = useSelector(state => state.auth.user);
 
   const onSubmit = e => {
@@ -28,8 +29,14 @@ const CreateProfile = ({ form }) => {
         try {
           await createProfile(data);
           message.success("Profile updated successfully");
+          return history.push("/dashboard");
         } catch (err) {
-          return message.error("Internal Server Error");
+          console.log(err);
+          if (err.response.status === 400) {
+            message.error("Username already taken");
+          } else {
+            message.error("Internal server error");
+          }
         }
       }
     });
@@ -61,17 +68,12 @@ const CreateProfile = ({ form }) => {
           </Row>
 
           <Row type="flex" justify="space-between">
-            <Col span={18}>
+            <Col span={24}>
               <Form.Item>
                 {getFieldDecorator("handle", {
                   rules: [{ required: true, message: "Username is required" }]
                 })(<Input size="large" placeholder="Set username/handle" />)}
               </Form.Item>
-            </Col>
-            <Col span={5}>
-              <Button size="large" style={{ width: "100%" }} type="primary">
-                Check availability
-              </Button>
             </Col>
           </Row>
           <Row type="flex" justify="space-between">
@@ -172,4 +174,4 @@ const CreateProfile = ({ form }) => {
   );
 };
 
-export default Form.create()(CreateProfile);
+export default withRouter(Form.create()(CreateProfile));

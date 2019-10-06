@@ -26,7 +26,6 @@ const PrivateRoute = ({ path, component: Component, user, ...props }) => {
 
 const Routing = () => {
   const user = useSelector(state => state.auth.user);
-  console.log(user);
   return (
     <BrowserRouter>
       <Switch>

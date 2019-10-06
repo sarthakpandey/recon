@@ -8,7 +8,6 @@ const Navbar = props => {
   const user = useSelector(state => state.auth.user);
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
-    console.log("call");
     if (user) {
       setLoggedIn(true);
     } else {
