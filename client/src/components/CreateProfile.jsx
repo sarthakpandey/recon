@@ -31,7 +31,6 @@ const CreateProfile = ({ form, history }) => {
           message.success("Profile updated successfully");
           return history.push("/dashboard");
         } catch (err) {
-          console.log(err);
           if (err.response.status === 400) {
             message.error("Username already taken");
           } else {
