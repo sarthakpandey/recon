@@ -17,7 +17,7 @@ const App = () => {
       }
     };
     fetchUser();
-  }, []);
+  }, [dispatch]);
 
   return loading ? null : <Routing />;
 };

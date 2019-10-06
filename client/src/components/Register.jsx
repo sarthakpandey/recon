@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Elements/Navbar";
 import { Card, Form, Input, Row, Col, Button, message } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { registerUser } from "../actions";
 
 const Register = props => {
@@ -9,7 +9,12 @@ const Register = props => {
   const onSubmit = e => {
     e.preventDefault();
     props.form.validateFields(async (err, formProps) => {
-      const { name, email, password, confirm_password } = formProps;
+      const {
+        register_name: name,
+        register_email: email,
+        register_password: password,
+        register_confirm_password: confirm_password
+      } = formProps;
       if (!err) {
         if (password === confirm_password) {
           await dispatch(
@@ -45,22 +50,22 @@ const Register = props => {
           >
             <Form onSubmit={onSubmit}>
               <Form.Item label="Name">
-                {getFieldDecorator("name", {
+                {getFieldDecorator("register_name", {
                   rules: [{ required: true, message: "Name is required" }]
                 })(<Input size="large" />)}
               </Form.Item>
               <Form.Item label="Email Address">
-                {getFieldDecorator("email", {
+                {getFieldDecorator("register_email", {
                   rules: [{ required: true, message: "Email is required" }]
                 })(<Input size="large" type="email" />)}
               </Form.Item>
               <Form.Item label="Password">
-                {getFieldDecorator("password", {
+                {getFieldDecorator("register_password", {
                   rules: [{ required: true, message: "Password is required" }]
                 })(<Input.Password size="large" />)}
               </Form.Item>
               <Form.Item label="Confirm Password">
-                {getFieldDecorator("confirm_password", {
+                {getFieldDecorator("register_confirm_password", {
                   rules: [{ required: true, message: "Passwords do not match" }]
                 })(<Input size="large" type="password" />)}
               </Form.Item>

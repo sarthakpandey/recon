@@ -43,6 +43,9 @@ const Navbar = props => {
         {loggedIn ? (
           <Col span={10}>
             <div style={{ textAlign: "right", color: "white" }}>
+              <span style={{ marginRight: 10, fontSize: 16 }}>
+                <Icon type="user" />
+              </span>
               <span style={{ marginRight: 10 }}>{user ? user.name : null}</span>
               <Button icon="logout" type="primary" onClick={onLogout}>
                 Logout

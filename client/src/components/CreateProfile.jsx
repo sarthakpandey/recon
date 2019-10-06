@@ -23,12 +23,14 @@ const CreateProfile = ({ form }) => {
   const onSubmit = e => {
     e.preventDefault();
     form.validateFields(async (err, formProps) => {
-      const data = _.pickBy(formProps, _.identity);
-      try {
-        await createProfile(data);
-        message.success("Profile updated successfully");
-      } catch (err) {
-        return message.error("Internal Server Error");
+      if (!err) {
+        const data = _.pickBy(formProps, _.identity);
+        try {
+          await createProfile(data);
+          message.success("Profile updated successfully");
+        } catch (err) {
+          return message.error("Internal Server Error");
+        }
       }
     });
   };
