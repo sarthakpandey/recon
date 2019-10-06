@@ -12,7 +12,7 @@ const {
   removeCommentFromPostController
 } = require("../../controllers/postController");
 
-const auth = require("../../controllers/authController").authStatusController;
+const auth = require("../../controllers/authController").authCheckController;
 
 router.get("/test", testController);
 

@@ -1,6 +1,7 @@
-import Axios from "axios";
+import axios from "axios";
 
 export const createProfile = async values => {
-  const response = await Axios.post("/api/profile", values);
+  console.log(values);
+  const response = await axios.post("/api/profile", values);
   return response;
 };

@@ -14,7 +14,7 @@ const {
   getAllUsersController
 } = require("../../controllers/userController");
 
-const auth = require("../../controllers/authController").authStatusController;
+const auth = require("../../controllers/authController").authCheckController;
 
 router.get("/me", auth, currentUserController);
 

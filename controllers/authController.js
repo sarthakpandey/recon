@@ -16,6 +16,7 @@ const authCheckController = async (req, res, next) => {
     console.log("logged in");
     return next();
   } else {
+    console.log("logged out");
     return res.send("Not logged in");
   }
 };

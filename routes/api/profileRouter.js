@@ -14,7 +14,7 @@ const {
   educationDeleteController
 } = require("../../controllers/profileController");
 
-const auth = require("../../controllers/authController").authStatusController;
+const auth = require("../../controllers/authController").authCheckController;
 
 router.get("/test", testController);
 

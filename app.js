@@ -13,7 +13,7 @@ const profileRouter = require("./routes/api/profileRouter");
 require("dotenv").config();
 
 const keys = require("./config/keys");
-console.log(process.env.USER);
+
 const app = express();
 // app.use(cors({ origin: true,  credentials: true }));
 

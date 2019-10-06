@@ -82,9 +82,12 @@ const profileCurrentGetController = async (req, res) => {
 };
 
 const profileCurrentPostController = async (req, res) => {
+  // console.log("hello")
   try {
     if (req.body.skills)
       req.body.skills = req.body.skills.split(",").map(item => item.trim());
+
+      // console.log(req.body);
 
     let profile = await Profile.findOne({ user: req.user._id });
 
