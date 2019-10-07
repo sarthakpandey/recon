@@ -110,7 +110,9 @@ const profileCurrentPostController = async (req, res) => {
 
       return res.status(400).json({ error: "Handle taken" });
     }
-    console.log(req.body);
+    
+    req.body.user = req.user._id;
+
     profile = await new Profile(req.body).save();
 
     res.json(profile);

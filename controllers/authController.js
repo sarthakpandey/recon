@@ -13,7 +13,7 @@ const authStatusController = async (req, res) => {
 
 const authCheckController = async (req, res, next) => {
   if (req.isAuthenticated()) {
-    console.log("logged in");
+    console.log(req.user);
     return next();
   } else {
     console.log("logged out");
