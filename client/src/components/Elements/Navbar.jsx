@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  Layout,
-  Row,
-  Col,
-  Input,
-  Button,
-  Form,
-  message,
-  Icon,
-  Menu
-} from "antd";
+import { Layout, Row, Col, Input, Button, Form, message, Icon } from "antd";
 import { loginUser, logoutUser } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
+import NavbarMenu from "./NavbarMenu";
+
 const Navbar = props => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
@@ -29,7 +21,7 @@ const Navbar = props => {
     e.preventDefault();
     props.form.validateFields(async (err, formProps) => {
       if (!err) {
-        await dispatch(loginUser(formProps));
+        await dispatch(loginUser(formProps, props.history));
         message.success("Logged in");
         props.history.push("/dashboard");
       }
@@ -39,7 +31,6 @@ const Navbar = props => {
   const onLogout = async () => {
     await dispatch(logoutUser());
     setLoggedIn(false);
-    console.log(user);
   };
 
   const { getFieldDecorator } = props.form;
@@ -49,27 +40,30 @@ const Navbar = props => {
         <Col span={3}>
           <h1 style={{ color: "white" }}>RECON</h1>
         </Col>
-        <Col span={12}>
-          <Menu theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
-            <Menu.Item onClick={() => props.history.push("/dashboard")}>
-              Dashboard
-            </Menu.Item>
-          </Menu>
-        </Col>
+
         {loggedIn ? (
-          <Col span={10}>
-            <div style={{ textAlign: "right", color: "white" }}>
-              <span style={{ marginRight: 10, fontSize: 16 }}>
-                <Icon type="user" />
-              </span>
-              <span style={{ marginRight: 10 }}>{user ? user.name : null}</span>
-              <Button icon="logout" type="primary" onClick={onLogout}>
-                Logout
-              </Button>
-            </div>
+          <Col span={21}>
+            <Row>
+              <Col span={14}>
+                <NavbarMenu history={props.history} />
+              </Col>
+              <Col span={10}>
+                <div style={{ textAlign: "right", color: "white" }}>
+                  <span style={{ marginRight: 10, fontSize: 16 }}>
+                    <Icon type="user" />
+                  </span>
+                  <span style={{ marginRight: 10 }}>
+                    {user ? user.name : null}
+                  </span>
+                  <Button icon="logout" type="primary" onClick={onLogout}>
+                    Logout
+                  </Button>
+                </div>
+              </Col>
+            </Row>
           </Col>
         ) : (
-          <Col span={9}>
+          <Col span={21}>
             <Form layout="inline" onSubmit={onLogin}>
               <Row
                 type="flex"
@@ -77,7 +71,7 @@ const Navbar = props => {
                 gutter={12}
                 style={{ marginBottom: 10 }}
               >
-                <Col span={9}>
+                <Col>
                   <Form.Item
                     style={{ marginRight: 0, marginTop: 10, marginBottom: 10 }}
                   >
@@ -86,7 +80,7 @@ const Navbar = props => {
                     })(<Input placeholder="Email" type="email" />)}
                   </Form.Item>
                 </Col>
-                <Col span={9}>
+                <Col>
                   <Form.Item
                     style={{ marginRight: 0, marginTop: 10, marginBottom: 10 }}
                   >
@@ -97,7 +91,7 @@ const Navbar = props => {
                     })(<Input.Password placeholder="Password" />)}
                   </Form.Item>
                 </Col>
-                <Col span={2} style={{ textAlign: "right" }}>
+                <Col style={{ textAlign: "right" }}>
                   <Form.Item
                     style={{ marginRight: 0, marginTop: 10, marginBottom: 10 }}
                   >

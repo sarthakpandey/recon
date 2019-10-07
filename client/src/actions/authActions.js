@@ -8,10 +8,11 @@ export const setUser = user => {
   };
 };
 
-export const loginUser = values => async dispatch => {
+export const loginUser = (values, history) => async dispatch => {
   try {
     const response = await axios.post("/api/auth/login", values);
-    dispatch(setUser(response.data.user));
+    await dispatch(setUser(response.data.user));
+    history.push("/dashboard");
   } catch (err) {
     console.log(err);
   }
