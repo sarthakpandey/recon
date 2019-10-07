@@ -36,6 +36,7 @@ const Dashboard = () => {
         onCancel={onModalClose}
         closable
         visible={showModal}
+        footer={null}
         title="Add Work Experience"
       >
         {modal === "experience" ? <AddExperience /> : <Dashboard />}
