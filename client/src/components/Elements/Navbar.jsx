@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Layout, Row, Col, Input, Button, Form, message, Icon } from "antd";
+import {
+  Layout,
+  Row,
+  Col,
+  Input,
+  Button,
+  Form,
+  message,
+  Icon,
+  Menu
+} from "antd";
 import { loginUser, logoutUser } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -36,8 +46,15 @@ const Navbar = props => {
   return (
     <Layout.Header>
       <Row type="flex">
-        <Col span={14}>
+        <Col span={3}>
           <h1 style={{ color: "white" }}>RECON</h1>
+        </Col>
+        <Col span={12}>
+          <Menu theme="dark" mode="horizontal" style={{ lineHeight: "64px" }}>
+            <Menu.Item onClick={() => props.history.push("/dashboard")}>
+              Dashboard
+            </Menu.Item>
+          </Menu>
         </Col>
         {loggedIn ? (
           <Col span={10}>
