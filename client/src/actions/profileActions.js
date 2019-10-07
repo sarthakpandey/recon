@@ -9,3 +9,8 @@ export const addExperience = async values => {
   const response = await axios.post("/api/profile/experience", values);
   return response;
 };
+
+export const addEducation = async values => {
+  const response = await axios.post("/api/profile/education", values);
+  return response;
+};

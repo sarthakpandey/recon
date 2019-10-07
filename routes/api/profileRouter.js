@@ -32,7 +32,7 @@ router.delete("/", auth, deleteAccountController);
 
 router.post("/experience", auth, experiencePostController);
 
-router.post("/eductaion", auth, educationPostController);
+router.post("/education", auth, educationPostController);
 
 router.delete("/experience/:exp_id", auth, experienceDeleteController);
 
