@@ -13,7 +13,10 @@ const Banner = props => {
         }}
         bordered={false}
       >
-        <Typography.Title style={{ color: "white" }} level={1}>
+        <Typography.Title
+          style={{ color: "white", fontWeight: "700" }}
+          level={1}
+        >
           RECON
         </Typography.Title>
         <Typography.Title style={{ color: "white" }} level={3}>

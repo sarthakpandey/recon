@@ -10,7 +10,8 @@ import {
   Input,
   Button,
   Select,
-  message
+  message,
+  Icon
 } from "antd";
 import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -71,7 +72,13 @@ const CreateProfile = ({ form, history }) => {
               <Form.Item>
                 {getFieldDecorator("handle", {
                   rules: [{ required: true, message: "Username is required" }]
-                })(<Input size="large" placeholder="Set username/handle" />)}
+                })(
+                  <Input
+                    addonBefore={<Icon type="user" />}
+                    size="large"
+                    placeholder="Set username/handle"
+                  />
+                )}
               </Form.Item>
             </Col>
           </Row>
@@ -96,6 +103,7 @@ const CreateProfile = ({ form, history }) => {
               <Form.Item>
                 {getFieldDecorator("githubusername")(
                   <Input
+                    addonBefore={<Icon type="github" />}
                     size="large"
                     placeholder="Enter your github username"
                   />
@@ -130,7 +138,14 @@ const CreateProfile = ({ form, history }) => {
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Card title="Academic Details">
+              <Card
+                title={
+                  <div style={{ fontSize: 20 }}>
+                    <Icon type="book" style={{ marginRight: 15 }} />
+                    <Typography.Text>Academic Details</Typography.Text>
+                  </div>
+                }
+              >
                 <Form.Item>
                   {getFieldDecorator("collegeID")(
                     <Input size="large" placeholder="Enter your College ID" />
