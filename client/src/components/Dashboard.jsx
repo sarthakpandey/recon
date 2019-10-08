@@ -19,14 +19,21 @@ const Dashboard = () => {
   return (
     <Container>
       <Card>
-        <Row type="flex" justify="end" gutter={48}>
-          <Col span={5}>
+        <Row>
+          <Col span={16}>
             <Button type="primary" size="large" onClick={onExperienceClick}>
-              Add Work Experience
+              Add Post
             </Button>
           </Col>
-          <Col span={5}>
-            <Button type="primary" size="large">
+          <Col span={4}>
+            <div style={{ width: "100%" }}>
+              <Button type="primary" size="large" onClick={onExperienceClick}>
+                Add Work Experience
+              </Button>
+            </div>
+          </Col>
+          <Col span={4}>
+            <Button type="primary" size="large" style={{ width: "100%" }}>
               Add Education
             </Button>
           </Col>
