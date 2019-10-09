@@ -20,9 +20,9 @@ router.get("/test", testController);
 
 router.get("/handle/:handle", profileByHandleController);
 
-router.get("/user/:user_id", profileByUserIdController);
+router.get("/user/:user_id", auth, profileByUserIdController);
 
-router.get("/all", profileAllController);
+router.get("/all", auth, profileAllController);
 
 router.get("/", auth, profileCurrentGetController);
 

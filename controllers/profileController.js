@@ -50,20 +50,20 @@ const profileByUserIdController = async (req, res) => {
 
 const profileAllController = async (req, res) => {
   try {
-    const profiles = await Profile.find().populate("user", ["name", "avatar"]);
+    let profiles = await Profile.find().populate("user", ["name", "avatar"]);
 
     if (!profiles) {
       return res.status(404).json({ noProfiles: "There are no profiles" });
     }
 
-    profiles = profiles.map(profile => {
-      if (profile.user.toString() !== req.user._id.toString()) {
-        return profile;
-      }
+    profiles = profiles.filter(profile => {
+      if (profile.user._id.toString() === req.user._id.toString()) return false;
+      else return true;
     });
 
     res.json(profiles);
   } catch (err) {
+    console.log("Get All Profiles Controller\n", err);
     return res.status(404).json({ noProfiles: "There are no profiles" });
   }
 };
@@ -93,7 +93,7 @@ const profileCurrentPostController = async (req, res) => {
     if (req.body.skills)
       req.body.skills = req.body.skills.split(",").map(item => item.trim());
 
-      // console.log(req.body);
+    // console.log(req.body);
 
     let profile = await Profile.findOne({ user: req.user._id });
 
@@ -116,7 +116,7 @@ const profileCurrentPostController = async (req, res) => {
 
       return res.status(400).json({ error: "Handle taken" });
     }
-    
+
     req.body.user = req.user._id;
 
     profile = await new Profile(req.body).save();
