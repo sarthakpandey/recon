@@ -6,6 +6,7 @@ import Dashboard from "../Dashboard.jsx";
 import Register from "../Register";
 import CreateProfile from "../CreateProfile";
 import Navbar from "../Elements/Navbar";
+import UsersList from "../UsersList";
 
 const PrivateRoute = ({ path, component: Component, user, ...props }) => {
   if (user)
@@ -37,6 +38,7 @@ const Routing = () => {
           component={CreateProfile}
           user={user}
         />
+        <PrivateRoute path="/users" component={UsersList} user={user} />
       </Switch>
     </BrowserRouter>
   );

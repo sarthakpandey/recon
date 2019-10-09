@@ -6,7 +6,8 @@ import {
   logoutUser
 } from "./authActions";
 
-import { createProfile, addExperience, addEducation } from "./profileActions";
+import { getAllProfiles, createProfile, addExperience, addEducation } from "./profileActions";
+import { getUsersList } from "./userActions";
 
 export {
   loginUser,
@@ -14,7 +15,9 @@ export {
   registerUser,
   getUser,
   logoutUser,
+  getAllProfiles,
   createProfile,
   addExperience,
-  addEducation
+  addEducation,
+  getUsersList
 };

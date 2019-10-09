@@ -7,6 +7,7 @@ const NavbarMenu = ({ history }) => {
       <Menu.Item onClick={() => history.push("/dashboard")}>
         Dashboard
       </Menu.Item>
+      <Menu.Item onClick={() => history.push("/users")}>Users</Menu.Item>
     </Menu>
   );
 };
