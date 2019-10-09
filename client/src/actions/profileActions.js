@@ -19,3 +19,8 @@ export const addEducation = async values => {
   const response = await axios.post("/api/profile/education", values);
   return response;
 };
+
+export const getProfileByUserId = async id => {
+  const response = await axios.get(`/api/profile/user/${id}`);
+  return response;
+};

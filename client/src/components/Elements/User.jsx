@@ -1,9 +1,14 @@
 import React from "react";
 import { Card, Row, Col, Icon, Typography, Button } from "antd";
+import { withRouter } from "react-router-dom";
 
-const User = ({ profile }) => {
+const User = ({ profile, history }) => {
+  const onUserClick = () => {
+    history.push(`/profile/${profile.user._id}`);
+  };
+
   return (
-    <Card style={{ width: "100%" }}>
+    <Card style={{ width: "100%", cursor: "pointer" }} onClick={onUserClick}>
       <Row type="flex" align="middle">
         <Col
           span={4}
@@ -42,4 +47,4 @@ const User = ({ profile }) => {
   );
 };
 
-export default User;
+export default withRouter(User);

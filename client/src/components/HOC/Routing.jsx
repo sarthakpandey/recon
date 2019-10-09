@@ -7,6 +7,7 @@ import Register from "../Register";
 import CreateProfile from "../CreateProfile";
 import Navbar from "../Elements/Navbar";
 import UsersList from "../UsersList";
+import ViewProfile from "../ViewProfile";
 
 const PrivateRoute = ({ path, component: Component, user, ...props }) => {
   if (user)
@@ -17,7 +18,7 @@ const PrivateRoute = ({ path, component: Component, user, ...props }) => {
         render={() => (
           <>
             <Navbar />
-            <Component />
+            <Component {...props} />
           </>
         )}
       />
@@ -39,6 +40,11 @@ const Routing = () => {
           user={user}
         />
         <PrivateRoute path="/users" component={UsersList} user={user} />
+        <PrivateRoute
+          path="/profile/:userId"
+          component={ViewProfile}
+          user={user}
+        />
       </Switch>
     </BrowserRouter>
   );

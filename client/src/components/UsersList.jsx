@@ -20,7 +20,7 @@ const UsersList = () => {
       <Card title="Users">
         <List>
           {profileList.map(profile => (
-            <List.Item>
+            <List.Item key={profile._id}>
               <User profile={profile} />
             </List.Item>
           ))}
