@@ -56,6 +56,12 @@ const profileAllController = async (req, res) => {
       return res.status(404).json({ noProfiles: "There are no profiles" });
     }
 
+    profiles = profiles.map(profile => {
+      if (profile.user.toString() !== req.user._id.toString()) {
+        return profile;
+      }
+    });
+
     res.json(profiles);
   } catch (err) {
     return res.status(404).json({ noProfiles: "There are no profiles" });
