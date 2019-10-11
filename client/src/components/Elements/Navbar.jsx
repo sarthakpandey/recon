@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Layout, Row, Col, Input, Button, Form, message, Icon } from "antd";
 import { loginUser, logoutUser } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import NavbarMenu from "./NavbarMenu";
 
 const Navbar = props => {
@@ -38,7 +38,7 @@ const Navbar = props => {
     <Layout.Header>
       <Row type="flex">
         <Col span={3}>
-          <h1 style={{ color: "white" }}>RECON</h1>
+          <h1 style={{ color: "white" }}><Link to = "/dashboard">RECON</Link></h1>
         </Col>
 
         {loggedIn ? (

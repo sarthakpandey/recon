@@ -3,8 +3,9 @@ import Container from "./Elements/Container";
 import { Card, Button, Row, Col, Modal } from "antd";
 import AddExperience from "./AddExperience";
 import AddEducation from "./AddEducation";
+import ViewProfile from './ViewProfile'
 
-const Dashboard = () => {
+const Dashboard = ({user}) => {
   const [modal, setModal] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -23,6 +24,8 @@ const Dashboard = () => {
   };
 
   return (
+    <div className = "dashboard">
+    
     <Container>
       <Card>
         <Row gutter={48}>
@@ -57,6 +60,8 @@ const Dashboard = () => {
         {modal === "experience" ? <AddExperience /> : <AddEducation />}
       </Modal>
     </Container>
+    <ViewProfile id = {user._id}/>
+    </div>
   );
 };
 

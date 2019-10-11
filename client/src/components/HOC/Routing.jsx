@@ -18,7 +18,7 @@ const PrivateRoute = ({ path, component: Component, user, ...props }) => {
         render={() => (
           <>
             <Navbar />
-            <Component {...props} />
+            <Component {...props} user = {user} />
           </>
         )}
       />
@@ -28,6 +28,7 @@ const PrivateRoute = ({ path, component: Component, user, ...props }) => {
 
 const Routing = () => {
   const user = useSelector(state => state.auth.user);
+
   return (
     <BrowserRouter>
       <Switch>

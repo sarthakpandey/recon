@@ -24,7 +24,9 @@ import { getProfileByUserId } from "../actions";
 
 const ViewProfile = props => {
   const [profile, setProfile] = useState(null);
-  const id = props.match.params.userId;
+  const id = props.match.params.userId || props.id;
+
+  const currentUser = props.match.params.userId == undefined ? true : false;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,14 +57,16 @@ const ViewProfile = props => {
                   <Typography.Title>{profile.user.name}</Typography.Title>
                 </Col>
                 <Col span={4}>
-                  <Button
-                    size="large"
-                    type="primary"
-                    shape="round"
-                    style={{ width: "100%" }}
-                  >
-                    Follow
-                  </Button>
+                  {!currentUser ? (
+                    <Button
+                      size="large"
+                      type="primary"
+                      shape="round"
+                      style={{ width: "100%" }}
+                    >
+                      Follow
+                    </Button>
+                  ) : null}
                 </Col>
               </Row>
               <div style={{ fontSize: 20 }}>@{profile.handle}</div>
@@ -106,7 +110,7 @@ const ViewProfile = props => {
                   <span style={{ fontSize: 20 }}>
                     <span style={{ fontWeight: "bold" }}>Skills: </span>
                     <span>
-                      {profile.skills.map(skill => (
+                      {profile.skills.map((skill, idx) => (
                         <Tag
                           color="blue"
                           style={{
@@ -114,6 +118,7 @@ const ViewProfile = props => {
                             padding: 7,
                             borderRadius: 25
                           }}
+                          key = {idx}
                         >
                           {skill}
                         </Tag>
@@ -135,7 +140,7 @@ const ViewProfile = props => {
               />
             </Col>
             <Col span={24} style={{ marginTop: 30 }}>
-              <Collapse defaultActiveKey="1">
+              <Collapse defaultActiveKey={[1, 2, 3]}>
                 <Collapse.Panel key="1" header={<div>More Details</div>}>
                   <div>
                     <Badge
