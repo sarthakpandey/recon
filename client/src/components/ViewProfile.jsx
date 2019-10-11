@@ -50,7 +50,21 @@ const ViewProfile = props => {
               </div>
             </Col>
             <Col span={14}>
-              <Typography.Title>{profile.user.name}</Typography.Title>
+              <Row type="flex" justify="space-between">
+                <Col span={18}>
+                  <Typography.Title>{profile.user.name}</Typography.Title>
+                </Col>
+                <Col span={4}>
+                  <Button
+                    size="large"
+                    type="primary"
+                    shape="round"
+                    style={{ width: "100%" }}
+                  >
+                    Follow
+                  </Button>
+                </Col>
+              </Row>
               <div style={{ fontSize: 20 }}>@{profile.handle}</div>
               <Divider />
               <div>{profile.bio}</div>
@@ -148,7 +162,7 @@ const ViewProfile = props => {
                 </Collapse.Panel>
                 <Collapse.Panel key="2" header={<div>Academic Details</div>}>
                   {profile.education.map((education, i) => (
-                    <Card>
+                    <Card key={i}>
                       <div>
                         <Badge
                           status="processing"
@@ -178,53 +192,43 @@ const ViewProfile = props => {
                     </Card>
                   ))}
                 </Collapse.Panel>
+                <Collapse.Panel
+                  key="3"
+                  header={<div>Work Experience Details</div>}
+                >
+                  {profile.experience.map((experience, i) => (
+                    <Card key={i}>
+                      <div>
+                        <Badge
+                          status="processing"
+                          text={
+                            <span style={{ fontSize: 16 }}>
+                              <span style={{ fontWeight: "bold" }}>
+                                Company:{" "}
+                              </span>
+                              <span>{experience.company}</span>
+                            </span>
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Badge
+                          status="processing"
+                          text={
+                            <span style={{ fontSize: 16 }}>
+                              <span style={{ fontWeight: "bold" }}>
+                                Title:{" "}
+                              </span>
+                              <span>{experience.title}</span>
+                            </span>
+                          }
+                        />
+                      </div>
+                    </Card>
+                  ))}
+                </Collapse.Panel>
               </Collapse>
             </Col>
-
-            {/* <Col span={24}>
-              <Card
-                title={
-                  <div style={{ fontSize: 20 }}>
-                    <Icon type="book" style={{ marginRight: 15 }} />
-                    <Typography.Text>Academic Details</Typography.Text>
-                  </div>
-                }
-              >
-                <Form.Item>
-                  {getFieldDecorator("collegeID")(
-                    <Input size="large" placeholder="Enter your College ID" />
-                  )}
-                </Form.Item>
-                <Form.Item>
-                  {getFieldDecorator("branch")(
-                    <Select size="large" placeholder="Select your Branch">
-                      {BRANCHES.map(branch => (
-                        <Select.Option key={branch} value={branch}>
-                          {branch}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  )}
-                </Form.Item>
-                <Form.Item>
-                  {getFieldDecorator("yearOfJoin")(
-                    <Input
-                      size="large"
-                      placeholder="Enter your Year of Joining (YYYY)"
-                    />
-                  )}
-                </Form.Item>
-              </Card>
-            </Col> */}
-            <Button
-              htmlType="submit"
-              type="primary"
-              shape="round"
-              size="large"
-              style={{ marginTop: 25 }}
-            >
-              Create Profile
-            </Button>
           </Row>
         </Card>
       )}
