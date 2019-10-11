@@ -121,8 +121,8 @@ const ViewProfile = props => {
               />
             </Col>
             <Col span={24} style={{ marginTop: 30 }}>
-              <Collapse>
-                <Collapse.Panel header={<div>More Details</div>}>
+              <Collapse defaultActiveKey="1">
+                <Collapse.Panel key="1" header={<div>More Details</div>}>
                   <div>
                     <Badge
                       status="processing"
@@ -146,8 +146,41 @@ const ViewProfile = props => {
                     />
                   </div>
                 </Collapse.Panel>
+                <Collapse.Panel key="2" header={<div>Academic Details</div>}>
+                  {profile.education.map((education, i) => (
+                    <Card>
+                      <div>
+                        <Badge
+                          status="processing"
+                          text={
+                            <span style={{ fontSize: 16 }}>
+                              <span style={{ fontWeight: "bold" }}>
+                                School:{" "}
+                              </span>
+                              <span>{education.school}</span>
+                            </span>
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Badge
+                          status="processing"
+                          text={
+                            <span style={{ fontSize: 16 }}>
+                              <span style={{ fontWeight: "bold" }}>
+                                Degree:{" "}
+                              </span>
+                              <span>{education.degree}</span>
+                            </span>
+                          }
+                        />
+                      </div>
+                    </Card>
+                  ))}
+                </Collapse.Panel>
               </Collapse>
             </Col>
+
             {/* <Col span={24}>
               <Card
                 title={
