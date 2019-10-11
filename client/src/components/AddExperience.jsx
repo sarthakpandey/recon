@@ -31,7 +31,8 @@ const AddExperience = ({ form }) => {
         data = _.pickBy(data, _.identity);
         try {
           await addExperience(data);
-          return message.success("Work Experience updated successfully");
+          message.success("Work Experience updated successfully");
+          form.resetFields();
         } catch (err) {
           return message.error("Internal Server Error");
         }

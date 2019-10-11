@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Container from "./Elements/Container";
 import { Card, Button, Row, Col, Modal } from "antd";
 import AddExperience from "./AddExperience";
+import AddEducation from "./AddEducation";
 
 const Dashboard = () => {
   const [modal, setModal] = useState(null);
@@ -13,6 +14,11 @@ const Dashboard = () => {
 
   const onExperienceClick = () => {
     setModal("experience");
+    setShowModal(true);
+  };
+
+  const onEducationClick = () => {
+    setModal("education");
     setShowModal(true);
   };
 
@@ -33,9 +39,11 @@ const Dashboard = () => {
             </div>
           </Col>
           <Col span={5}>
-            <Button type="primary" size="large" style={{ width: "100%" }}>
-              Add Education
-            </Button>
+            <div style={{ width: "100%" }}>
+              <Button type="primary" size="large" onClick={onEducationClick}>
+                Add Education
+              </Button>
+            </div>
           </Col>
         </Row>
       </Card>
@@ -46,7 +54,7 @@ const Dashboard = () => {
         footer={null}
         title="Add Work Experience"
       >
-        {modal === "experience" ? <AddExperience /> : <Dashboard />}
+        {modal === "experience" ? <AddExperience /> : <AddEducation />}
       </Modal>
     </Container>
   );

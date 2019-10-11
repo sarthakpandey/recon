@@ -11,12 +11,13 @@ import {
   message
 } from "antd";
 import _ from "lodash";
-import { LOCATIONS } from "../utils";
+import { DEGREES, FIELD_OF_STUDY } from "../utils";
 import moment from "moment";
 import { addEducation } from "../actions";
 
 const AddEducation = ({ form }) => {
   const [isCurrent, setIsCurrent] = useState(false);
+  const [showOther, setShowOther] = useState(false);
 
   const onSubmit = e => {
     e.preventDefault();
@@ -31,12 +32,19 @@ const AddEducation = ({ form }) => {
         data = _.pickBy(data, _.identity);
         try {
           await addEducation(data);
-          return message.success("Work Experience updated successfully");
+          message.success("Education updated successfully");
+          form.resetFields();
         } catch (err) {
           return message.error("Internal Server Error");
         }
       }
     });
+  };
+
+  const onDegreeSelect = value => {
+    if (value === "Other") {
+      setShowOther(true);
+    }
   };
 
   const { getFieldDecorator } = form;
@@ -47,9 +55,38 @@ const AddEducation = ({ form }) => {
           <Input size="large" placeholder="Enter School Name" />
         )}
       </Form.Item>
+      {showOther ? (
+        <Form.Item>
+          {getFieldDecorator("degree", { rules: [{ required: true }] })(
+            <Input size="large" placeholder="Enter degree" />
+          )}
+        </Form.Item>
+      ) : (
+        <Form.Item>
+          {getFieldDecorator("degree", { rules: [{ required: true }] })(
+            <Select
+              size="large"
+              placeholder="Enter degree"
+              onChange={onDegreeSelect}
+            >
+              {DEGREES.map(degree => (
+                <Select.Option key={degree} value={degree}>
+                  {degree}
+                </Select.Option>
+              ))}
+            </Select>
+          )}
+        </Form.Item>
+      )}
       <Form.Item>
-        {getFieldDecorator("company", { rules: [{ required: true }] })(
-          <Input size="large" placeholder="Enter Company" />
+        {getFieldDecorator("fieldofstudy", { rules: [{ required: true }] })(
+          <Select size="large" placeholder="Enter Field of study">
+            {FIELD_OF_STUDY.map(field => (
+              <Select.Option key={field} value={field}>
+                {field}
+              </Select.Option>
+            ))}
+          </Select>
         )}
       </Form.Item>
       <Form.Item>
@@ -59,17 +96,6 @@ const AddEducation = ({ form }) => {
             placeholder="Enter Description"
             rows={5}
           />
-        )}
-      </Form.Item>
-      <Form.Item>
-        {getFieldDecorator("location")(
-          <Select size="large" placeholder="Select the location">
-            {LOCATIONS.map(location => (
-              <Select.Option key={location} value={location}>
-                {location}
-              </Select.Option>
-            ))}
-          </Select>
         )}
       </Form.Item>
       <Row gutter={16}>

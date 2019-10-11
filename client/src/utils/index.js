@@ -54,3 +54,13 @@ export const BRANCHES = [
   "EP",
   "MC"
 ];
+
+export const DEGREES = [
+  "Some school",
+  "High school",
+  "Undergraduate",
+  "Postgraduate",
+  "Other"
+];
+
+export const FIELD_OF_STUDY = ["Technical", "Non-technical"];
