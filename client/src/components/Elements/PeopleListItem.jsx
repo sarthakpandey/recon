@@ -1,39 +1,59 @@
 import React from "react";
-import { Card, Row, Col, Icon, Typography, Avatar } from "antd";
+import { Card, Row, Col, Icon, Typography, Avatar, Button } from "antd";
 import { withRouter } from "react-router-dom";
 
-const PeopleListItem = ({ user, history }) => {
+const PeopleListItem = ({ user, history, bText }) => {
   const onItemClick = () => {
     return history.push(`/profile/${user.user}`);
   };
 
   return (
-    <Card onClick={onItemClick} style={{ cursor: "pointer" }}>
-      <Row gutter={48}>
-        <Col span={4} style={{ height: "100%" }}>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
-          >
-            <Avatar icon="user" size={48} />
-          </div>
+    <Card style={{ width: "100%" }}>
+      <Row type="flex" align="middle">
+        <Col
+          span={4}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+          onClick={onItemClick}
+          style={{ cursor: "pointer" }}
+        >
+          <Icon type="user" style={{ fontSize: 24 }} />
         </Col>
-        <Col span={20} style={{ minHeight: "100%" }}>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center"
-            }}
-          >
-            <Typography.Text style={{ fontSize: 28 }}>
-              {user.name}
-            </Typography.Text>
-          </div>
+        <Col span={20}>
+          <Row type="flex" justify="space-between">
+            <Col span={10} onClick={onItemClick} style={{ cursor: "pointer" }}>
+              <Typography.Title style={{ fontSize: 24 }}>
+                {user.name}
+              </Typography.Title>
+            </Col>
+            <Row type="flex" gutter={10}>
+              {bText.first ? (
+                <Col span={12}>
+                  <Button
+                    type="primary"
+                    size="large"
+                    onClick={() => bText.firstOnClick(user._id)}
+                  >
+                    {bText.first}
+                  </Button>
+                </Col>
+              ) : null}
+              {bText.second ? (
+                <Col span={12}>
+                  <Button
+                    type="primary"
+                    size="large"
+                    onClick={() => bText.secondOnClick(user._id)}
+                  >
+                    {bText.second}
+                  </Button>
+                </Col>
+              ) : null}
+            </Row>
+          </Row>
         </Col>
       </Row>
     </Card>
