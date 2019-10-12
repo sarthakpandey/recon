@@ -17,3 +17,18 @@ export const checkFriend = async id => {
 export const cancelRequest = async id => {
   await Axios.delete(`/api/user/unsend/${id}`);
 };
+
+export const getSentRequestsList = async () => {
+  const response = await Axios.get("/api/user/sent");
+  return response;
+};
+
+export const getConnectedList = async () => {
+  const response = await Axios.get("/api/user/people");
+  return response;
+};
+
+export const getReceivedRequestsList = async () => {
+  const response = await Axios.get("/api/user/recieved");
+  return response;
+};

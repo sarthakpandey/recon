@@ -17,7 +17,10 @@ import {
   getUsersList,
   sendFollowRequest,
   checkFriend,
-  cancelRequest
+  cancelRequest,
+  getConnectedList,
+  getReceivedRequestsList,
+  getSentRequestsList
 } from "./userActions";
 
 export {
@@ -34,5 +37,8 @@ export {
   getProfileByUserId,
   sendFollowRequest,
   checkFriend,
-  cancelRequest
+  cancelRequest,
+  getConnectedList,
+  getReceivedRequestsList,
+  getSentRequestsList
 };

@@ -27,6 +27,14 @@ const NavbarMenu = ({ history }) => {
       >
         Users
       </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push("/connections");
+        }}
+        key="connections"
+      >
+        Manage Connections
+      </Menu.Item>
     </Menu>
   );
 };

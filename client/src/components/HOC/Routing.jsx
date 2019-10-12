@@ -8,6 +8,7 @@ import CreateProfile from "../CreateProfile";
 import Navbar from "../Elements/Navbar";
 import UsersList from "../UsersList";
 import ViewProfile from "../ViewProfile";
+import ManageConnections from "../ManageConnections";
 
 const PrivateRoute = ({ path, component: Component, user, ...props }) => {
   if (user)
@@ -18,7 +19,7 @@ const PrivateRoute = ({ path, component: Component, user, ...props }) => {
         render={() => (
           <>
             <Navbar />
-            <Component {...props} user = {user} />
+            <Component {...props} user={user} />
           </>
         )}
       />
@@ -44,6 +45,11 @@ const Routing = () => {
         <PrivateRoute
           path="/profile/:userId"
           component={ViewProfile}
+          user={user}
+        />
+        <PrivateRoute
+          path="/connections"
+          component={ManageConnections}
           user={user}
         />
       </Switch>
