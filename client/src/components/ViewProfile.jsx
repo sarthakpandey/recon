@@ -19,22 +19,45 @@ import {
   Collapse
 } from "antd";
 import Container from "./Elements/Container";
-import { BRANCHES, LOCATIONS } from "../utils";
-import { getProfileByUserId } from "../actions";
+import { getProfileByUserId, sendFollowRequest, checkFriend } from "../actions";
 
 const ViewProfile = props => {
   const [profile, setProfile] = useState(null);
+  const [status, setStatus] = useState(null);
   const id = props.match.params.userId || props.id;
 
-  const currentUser = props.match.params.userId == undefined ? true : false;
+  const currentUser = props.match.params.userId === undefined ? true : false;
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getProfileByUserId(id);
+      let response = await getProfileByUserId(id);
       setProfile(response.data);
+      if (!currentUser) {
+        response = await checkFriend(id);
+        let status = null;
+        if (response.data.friend) {
+          status = "friend";
+        } else if (response.data.sent) {
+          status = "sent";
+        }
+        if (status) {
+          setStatus(status);
+        }
+      }
     };
     fetchData();
   }, [id]);
+
+  const onFollowClick = async () => {
+    try {
+      await sendFollowRequest(id);
+      message.success("Request sent successfully");
+      setStatus("sent");
+    } catch (err) {
+      message.error("Could not send request. Please try again");
+    }
+  };
+
   return (
     <Container>
       {!profile ? (
@@ -53,18 +76,30 @@ const ViewProfile = props => {
             </Col>
             <Col span={14}>
               <Row type="flex" justify="space-between">
-                <Col span={18}>
+                <Col span={16}>
                   <Typography.Title>{profile.user.name}</Typography.Title>
                 </Col>
-                <Col span={4}>
-                  {!currentUser ? (
+                <Col span={6}>
+                  {!currentUser && !status ? (
                     <Button
                       size="large"
                       type="primary"
                       shape="round"
                       style={{ width: "100%" }}
+                      onClick={onFollowClick}
                     >
                       Follow
+                    </Button>
+                  ) : null}
+                  {!currentUser && status ? (
+                    <Button
+                      size="large"
+                      type="primary"
+                      shape="round"
+                      style={{ width: "100%" }}
+                      // onClick={status onFollowClick}
+                    >
+                      {status === "sent" ? "Pending" : "Following"}
                     </Button>
                   ) : null}
                 </Col>
@@ -118,7 +153,7 @@ const ViewProfile = props => {
                             padding: 7,
                             borderRadius: 25
                           }}
-                          key = {idx}
+                          key={idx}
                         >
                           {skill}
                         </Tag>
