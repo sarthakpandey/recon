@@ -1,9 +1,14 @@
 import React from "react";
 import { Card, Row, Col, Icon, Typography, Avatar } from "antd";
+import { withRouter } from "react-router-dom";
 
-const PeopleListItem = ({ user }) => {
+const PeopleListItem = ({ user, history }) => {
+  const onItemClick = () => {
+    return history.push(`/profile/${user.user}`);
+  };
+
   return (
-    <Card>
+    <Card onClick={onItemClick}>
       <Row gutter={48}>
         <Col span={4} style={{ height: "100%" }}>
           <div
@@ -35,4 +40,4 @@ const PeopleListItem = ({ user }) => {
   );
 };
 
-export default PeopleListItem;
+export default withRouter(PeopleListItem);
