@@ -8,7 +8,7 @@ const PeopleListItem = ({ user, history }) => {
   };
 
   return (
-    <Card onClick={onItemClick}>
+    <Card onClick={onItemClick} style={{ cursor: "pointer" }}>
       <Row gutter={48}>
         <Col span={4} style={{ height: "100%" }}>
           <div
