@@ -19,7 +19,12 @@ import {
   Collapse
 } from "antd";
 import Container from "./Elements/Container";
-import { getProfileByUserId, sendFollowRequest, checkFriend } from "../actions";
+import {
+  getProfileByUserId,
+  sendFollowRequest,
+  checkFriend,
+  cancelRequest
+} from "../actions";
 
 const ViewProfile = props => {
   const [profile, setProfile] = useState(null);
@@ -56,6 +61,20 @@ const ViewProfile = props => {
     } catch (err) {
       message.error("Could not send request. Please try again");
     }
+  };
+
+  const onCancelClick = async () => {
+    try {
+      await cancelRequest(id);
+      message.success("Request cancelled successfully");
+      setStatus(null);
+    } catch (err) {
+      message.error("Could not cancel request. Please try again");
+    }
+  };
+
+  const onUnfollowClick = () => {
+    message.warning("Once a friend, always a friend");
   };
 
   return (
@@ -97,7 +116,9 @@ const ViewProfile = props => {
                       type="primary"
                       shape="round"
                       style={{ width: "100%" }}
-                      // onClick={status onFollowClick}
+                      onClick={
+                        status === "sent" ? onCancelClick : onUnfollowClick
+                      }
                     >
                       {status === "sent" ? "Pending" : "Following"}
                     </Button>

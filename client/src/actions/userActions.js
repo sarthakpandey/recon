@@ -13,3 +13,7 @@ export const checkFriend = async id => {
   const response = await Axios.get(`/api/user/check/${id}`);
   return response;
 };
+
+export const cancelRequest = async id => {
+  await Axios.delete(`/api/user/unsend/${id}`);
+};

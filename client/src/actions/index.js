@@ -13,7 +13,12 @@ import {
   addEducation,
   getProfileByUserId
 } from "./profileActions";
-import { getUsersList, sendFollowRequest, checkFriend } from "./userActions";
+import {
+  getUsersList,
+  sendFollowRequest,
+  checkFriend,
+  cancelRequest
+} from "./userActions";
 
 export {
   loginUser,
@@ -28,5 +33,6 @@ export {
   getUsersList,
   getProfileByUserId,
   sendFollowRequest,
-  checkFriend
+  checkFriend,
+  cancelRequest
 };
