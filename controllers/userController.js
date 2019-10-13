@@ -180,6 +180,7 @@ const acceptRequestController = async (req, res) => {
 
     res.json(acceptor.connectedPeople);
   } catch (err) {
+    console.log(err);
     res.json({ err });
   }
 };

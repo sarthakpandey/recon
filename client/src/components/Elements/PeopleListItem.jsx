@@ -35,7 +35,7 @@ const PeopleListItem = ({ user, history, bText }) => {
                   <Button
                     type="primary"
                     size="large"
-                    onClick={() => bText.firstOnClick(user._id)}
+                    onClick={() => bText.firstOnClick(user.user)}
                   >
                     {bText.first}
                   </Button>
@@ -46,7 +46,7 @@ const PeopleListItem = ({ user, history, bText }) => {
                   <Button
                     type="danger"
                     size="large"
-                    onClick={() => bText.secondOnClick(user._id)}
+                    onClick={() => bText.secondOnClick(user.user)}
                   >
                     {bText.second}
                   </Button>
