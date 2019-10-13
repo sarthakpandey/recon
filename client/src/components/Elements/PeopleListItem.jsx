@@ -44,7 +44,7 @@ const PeopleListItem = ({ user, history, bText }) => {
               {bText.second ? (
                 <Col span={12}>
                   <Button
-                    type="primary"
+                    type="danger"
                     size="large"
                     onClick={() => bText.secondOnClick(user._id)}
                   >

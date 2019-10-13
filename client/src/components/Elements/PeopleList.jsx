@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Card, List } from "antd";
+import { Card, List, message } from "antd";
 import {
   getSentRequestsList,
   getReceivedRequestsList,
-  getConnectedList
+  getConnectedList,
+  acceptRequest,
+  ignoreRequest,
+  cancelRequest
 } from "../../actions";
 import PeopleListItem from "./PeopleListItem";
 
@@ -11,17 +14,36 @@ const PeopleList = ({ type }) => {
   const [loading, setLoading] = useState(true);
   const [bText, setButtonText] = useState({});
   const [list, setList] = useState([]);
+  const [refresh, setRefresh] = useState(true);
 
-  const onAcceptClick = id => {
-    console.log(id);
+  const onAcceptClick = async id => {
+    try {
+      await acceptRequest(id);
+      message.success("You both are now connected");
+      setRefresh(true);
+    } catch (err) {
+      message.error("Something went wrong");
+    }
   };
 
-  const onIgnoreClick = id => {
-    console.log(id);
+  const onIgnoreClick = async id => {
+    try {
+      await ignoreRequest(id);
+      message.success("Request ignored");
+      setRefresh(true);
+    } catch (err) {
+      message.error("Something went wrong");
+    }
   };
 
-  const onUnsendClick = id => {
-    console.log(id);
+  const onUnsendClick = async id => {
+    try {
+      await cancelRequest(id);
+      message.success("Request unsent successfully");
+      setRefresh(true);
+    } catch (err) {
+      message.error("Something went wrong");
+    }
   };
 
   useEffect(() => {
@@ -59,8 +81,11 @@ const PeopleList = ({ type }) => {
         console.log("Something went wrong");
       }
     };
-    fetchData();
-  }, [type]);
+    if (refresh) {
+      fetchData();
+      setRefresh(false);
+    }
+  }, [type, refresh]);
 
   return (
     <Card loading={loading}>

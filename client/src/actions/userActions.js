@@ -32,3 +32,11 @@ export const getReceivedRequestsList = async () => {
   const response = await Axios.get("/api/user/recieved");
   return response;
 };
+
+export const acceptRequest = async id => {
+  await Axios.post(`/api/user/accept/${id}`);
+};
+
+export const ignoreRequest = async id => {
+  await Axios.post(`/api/user/ignore/${id}`);
+};

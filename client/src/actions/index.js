@@ -20,7 +20,9 @@ import {
   cancelRequest,
   getConnectedList,
   getReceivedRequestsList,
-  getSentRequestsList
+  getSentRequestsList,
+  acceptRequest,
+  ignoreRequest
 } from "./userActions";
 
 export {
@@ -40,5 +42,7 @@ export {
   cancelRequest,
   getConnectedList,
   getReceivedRequestsList,
-  getSentRequestsList
+  getSentRequestsList,
+  acceptRequest,
+  ignoreRequest
 };
