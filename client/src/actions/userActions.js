@@ -38,5 +38,5 @@ export const acceptRequest = async id => {
 };
 
 export const ignoreRequest = async id => {
-  await Axios.post(`/api/user/ignore/${id}`);
+  await Axios.delete(`/api/user/ignore/${id}`);
 };
