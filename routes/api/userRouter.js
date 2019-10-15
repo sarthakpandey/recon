@@ -11,7 +11,8 @@ const {
   acceptRequestController,
   ignoreRequestController,
   checkFriendController,
-  getAllUsersController
+  getAllUsersController,
+  getConnectedPeoplePostsController
 } = require("../../controllers/userController");
 
 const auth = require("../../controllers/authController").authCheckController;
@@ -25,6 +26,8 @@ router.get("/sent", auth, getRequestSentController);
 router.get("/recieved", auth, getRequestRecievedController);
 
 router.get("/people", auth, getConnectedPeopleController);
+
+router.get("/posts", auth, getConnectedPeoplePostsController);
 
 router.get("/recon", auth, getRecommendedController);
 

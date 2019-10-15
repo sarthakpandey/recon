@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Post = require("../models/Post");
 
 const currentUserController = (req, res) => {
   return res.json(req.user);
@@ -40,6 +41,29 @@ const getConnectedPeopleController = async (req, res) => {
     res.status(200).json(user.connectedPeople);
   } catch (err) {
     res.json({ err });
+  }
+};
+
+const getConnectedPeoplePostsController = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    const connections = user.connectedPeople.map(item => item.user);
+
+    let posts = [];
+
+    for (connection of connections) {
+      const connectionPosts = await Post.find({ user: connection }).sort({
+        date: -1
+      });
+
+      if (connectionPosts.length !== 0) posts.push(connectionPosts);
+    }
+
+    res.json(posts);
+  } catch (err) {
+    console.log(err);
+    res.json({ err: err });
   }
 };
 
@@ -258,5 +282,6 @@ module.exports = {
   acceptRequestController,
   ignoreRequestController,
   checkFriendController,
-  getAllUsersController
+  getAllUsersController,
+  getConnectedPeoplePostsController
 };
