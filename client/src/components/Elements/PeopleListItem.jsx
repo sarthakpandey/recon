@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row, Col, Icon, Typography, Avatar, Button } from "antd";
+import { Card, Row, Col, Icon, Typography, Button } from "antd";
 import { withRouter } from "react-router-dom";
 
 const PeopleListItem = ({ user, history, bText }) => {
@@ -15,10 +15,10 @@ const PeopleListItem = ({ user, history, bText }) => {
           style={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            cursor: "pointer"
           }}
           onClick={onItemClick}
-          style={{ cursor: "pointer" }}
         >
           <Icon type="user" style={{ fontSize: 24 }} />
         </Col>

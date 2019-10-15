@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import _ from "lodash";
 import { withRouter } from "react-router-dom";
 import {
   Row,
@@ -7,10 +6,7 @@ import {
   Avatar,
   Typography,
   Card,
-  Form,
-  Input,
   Button,
-  Select,
   message,
   Icon,
   Badge,
@@ -51,7 +47,7 @@ const ViewProfile = props => {
       }
     };
     fetchData();
-  }, [id]);
+  }, [id, currentUser]);
 
   const onFollowClick = async () => {
     try {
