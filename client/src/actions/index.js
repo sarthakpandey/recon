@@ -25,6 +25,8 @@ import {
   ignoreRequest
 } from "./userActions";
 
+import { createPost } from "./postActions";
+
 export {
   loginUser,
   setUser,
@@ -44,5 +46,6 @@ export {
   getReceivedRequestsList,
   getSentRequestsList,
   acceptRequest,
-  ignoreRequest
+  ignoreRequest,
+  createPost
 };
