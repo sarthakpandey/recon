@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Container from "./Elements/Container";
-import { Card, Button, Row, Col, Modal } from "antd";
+import { Card, Button, Row, Col, Modal, Tabs } from "antd";
 import AddExperience from "./AddExperience";
 import AddEducation from "./AddEducation";
 import ViewProfile from "./ViewProfile";
 import CreatePost from "./CreatePost";
+import PostsList from "./Elements/PostsList";
 
 const Dashboard = ({ user }) => {
   const [modal, setModal] = useState(null);
@@ -64,7 +65,18 @@ const Dashboard = ({ user }) => {
               </div>
             </Col>
           </Row>
+          <Row style={{ marginTop: 20 }}>
+            <Tabs>
+              <Tabs.TabPane key="conn" tab="Posts from connections">
+                <PostsList type="conn" />
+              </Tabs.TabPane>
+              <Tabs.TabPane key="all" tab="All posts">
+                <PostsList type="all" />2
+              </Tabs.TabPane>
+            </Tabs>
+          </Row>
         </Card>
+
         <Modal
           onCancel={onModalClose}
           closable
@@ -88,7 +100,6 @@ const Dashboard = ({ user }) => {
           )}
         </Modal>
       </Container>
-      {/* <ViewProfile id={user._id} /> */}
     </div>
   );
 };

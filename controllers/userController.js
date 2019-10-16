@@ -57,9 +57,8 @@ const getConnectedPeoplePostsController = async (req, res) => {
         date: -1
       });
 
-      if (connectionPosts.length !== 0) posts.push(connectionPosts);
+      if (connectionPosts.length !== 0) posts.push(...connectionPosts);
     }
-
     res.json(posts);
   } catch (err) {
     console.log(err);
