@@ -41,7 +41,7 @@ const PostsList = ({ type }) => {
         {list.map(post => (
           <List.Item key={post._id}>
             <div style={{ width: "100%" }}>
-              <PostsListItem post={post} />
+              <PostsListItem post={post} setRefresh={setRefresh} />
             </div>
           </List.Item>
         ))}

@@ -28,7 +28,9 @@ import {
 import {
   createPost,
   getAllPosts,
-  getPostsFromConnections
+  getPostsFromConnections,
+  likePost,
+  unlikePost
 } from "./postActions";
 
 export {
@@ -53,5 +55,7 @@ export {
   ignoreRequest,
   createPost,
   getAllPosts,
-  getPostsFromConnections
+  getPostsFromConnections,
+  likePost,
+  unlikePost
 };

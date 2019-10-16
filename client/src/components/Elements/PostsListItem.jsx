@@ -1,10 +1,38 @@
 import React from "react";
-import { Card, Row, Col, Icon, Typography, Button, Divider } from "antd";
+import {
+  Card,
+  Row,
+  Col,
+  Icon,
+  Typography,
+  Button,
+  Divider,
+  message
+} from "antd";
 import { withRouter } from "react-router-dom";
+import { likePost, unlikePost } from "../../actions";
 
-const PostsListItem = ({ post, history }) => {
+const PostsListItem = ({ post, history, setRefresh }) => {
   const onItemClick = () => {
     return history.push(`/profile/${post.user}`);
+  };
+
+  const onLikeClick = async () => {
+    try {
+      await likePost(post._id);
+      setRefresh(true);
+    } catch (err) {
+      message.error("Something went wrong");
+    }
+  };
+
+  const onUnlikeClick = async () => {
+    try {
+      await unlikePost(post._id);
+      setRefresh(true);
+    } catch (err) {
+      message.error("Something went wrong");
+    }
   };
 
   return (
@@ -26,10 +54,10 @@ const PostsListItem = ({ post, history }) => {
         <Divider />
         <div style={{ fontSize: 16 }}>
           <span style={{ marginRight: 20 }}>
-            <span style={{ marginRight: 5 }}>
+            <span style={{ marginRight: 5 }} onClick={onLikeClick}>
               <Icon type="like" />
             </span>
-            <span>0 Likes</span>
+            <span>{post.likes.length} Likes</span>
           </span>
           <span>
             <span style={{ marginRight: 5 }}>
