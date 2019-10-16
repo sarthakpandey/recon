@@ -34,21 +34,31 @@ const Dashboard = ({ user }) => {
       <Container>
         <Card>
           <Row gutter={48}>
-            <Col span={14}>
+            <Col span={12}>
               <Button type="primary" size="large" onClick={onCreateClick}>
                 Create Post
               </Button>
             </Col>
-            <Col span={5}>
+            <Col span={6}>
               <div style={{ width: "100%" }}>
-                <Button type="primary" size="large" onClick={onExperienceClick}>
+                <Button
+                  type="primary"
+                  size="large"
+                  style={{ width: "100%" }}
+                  onClick={onExperienceClick}
+                >
                   Add Work Experience
                 </Button>
               </div>
             </Col>
-            <Col span={5}>
+            <Col span={6}>
               <div style={{ width: "100%" }}>
-                <Button type="primary" size="large" onClick={onEducationClick}>
+                <Button
+                  type="primary"
+                  size="large"
+                  style={{ width: "100%" }}
+                  onClick={onEducationClick}
+                >
                   Add Education
                 </Button>
               </div>
@@ -78,7 +88,7 @@ const Dashboard = ({ user }) => {
           )}
         </Modal>
       </Container>
-      <ViewProfile id={user._id} />
+      {/* <ViewProfile id={user._id} /> */}
     </div>
   );
 };

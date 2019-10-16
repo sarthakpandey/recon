@@ -27,7 +27,7 @@ const ViewProfile = props => {
   const [status, setStatus] = useState(null);
   const id = props.match.params.userId || props.id;
 
-  const currentUser = props.match.params.userId === undefined ? true : false;
+  const currentUser = id === props.user._id ? true : false;
 
   useEffect(() => {
     const fetchData = async () => {
