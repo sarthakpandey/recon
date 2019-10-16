@@ -30,7 +30,26 @@ const createPostController = async (req, res) => {
 const getAllPostsController = async (req, res) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
-    res.json(posts);
+
+    const myPosts = [];
+
+    for (post of posts) {
+      const myPost = JSON.parse(JSON.stringify(post));
+
+      if (
+        post.likes
+          .map(user => user.toString())
+          .indexOf(req.user._id.toString()) !== -1
+      ) {
+        myPost.currentLiked = true;
+      } else {
+        myPost.currentLiked = false;
+      }
+
+      myPosts.push(myPost);
+    }
+
+    res.json(myPosts);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -86,8 +105,9 @@ const addLikeToPostController = async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     if (
-      post.likes.filter(like => like.user.toString() === req.user._id.toString()).length >
-      0
+      post.likes.filter(
+        like => like.user.toString() === req.user._id.toString()
+      ).length > 0
     ) {
       return res.status(400).json({ status: "Post already liked" });
     }
@@ -112,8 +132,9 @@ const removeLikeFromPostController = async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     if (
-      post.likes.filter(like => like.user.toString() === req.user._id.toString())
-        .length === 0
+      post.likes.filter(
+        like => like.user.toString() === req.user._id.toString()
+      ).length === 0
     ) {
       return res.status(400).json({ status: "Post has not been liked" });
     }

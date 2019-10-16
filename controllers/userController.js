@@ -59,7 +59,28 @@ const getConnectedPeoplePostsController = async (req, res) => {
 
       if (connectionPosts.length !== 0) posts.push(...connectionPosts);
     }
-    res.json(posts);
+
+    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const myPosts = [];
+
+    for (post of posts) {
+      const myPost = JSON.parse(JSON.stringify(post));
+
+      if (
+        post.likes
+          .map(user => user.toString())
+          .indexOf(req.user._id.toString()) !== -1
+      ) {
+        myPost.currentLiked = true;
+      } else {
+        myPost.currentLiked = false;
+      }
+
+      myPosts.push(myPost);
+    }
+
+    res.json(myPosts);
   } catch (err) {
     console.log(err);
     res.json({ err: err });
