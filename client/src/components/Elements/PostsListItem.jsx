@@ -31,7 +31,7 @@ const PostsListItem = ({ post, history, setRefresh }) => {
       await unlikePost(post._id);
       setRefresh(true);
     } catch (err) {
-      message.error("Something went wrong");
+      message.error("Something went terribly wrong");
     }
   };
 
