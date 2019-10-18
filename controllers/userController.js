@@ -69,7 +69,7 @@ const getConnectedPeoplePostsController = async (req, res) => {
 
       if (
         post.likes
-          .map(user => user.toString())
+          .map(item => item.user.toString())
           .indexOf(req.user._id.toString()) !== -1
       ) {
         myPost.currentLiked = true;
