@@ -54,8 +54,15 @@ const PostsListItem = ({ post, history, setRefresh }) => {
         <Divider />
         <div style={{ fontSize: 16 }}>
           <span style={{ marginRight: 20 }}>
-            <span style={{ marginRight: 5 }} onClick={onLikeClick}>
-              <Icon type="like" />
+            <span
+              style={{ marginRight: 5, cursor: "pointer" }}
+              onClick={post.currentLiked ? onUnlikeClick : onLikeClick}
+            >
+              <Icon
+                theme={post.currentLiked ? "filled" : "outlined"}
+                style={{ color: "#1890FF" }}
+                type="like"
+              />
             </span>
             <span>{post.likes.length} Likes</span>
           </span>
