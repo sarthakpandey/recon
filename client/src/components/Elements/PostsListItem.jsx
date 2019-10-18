@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Card,
   Row,
   Col,
   Icon,
-  Typography,
   Button,
   Divider,
-  message
+  message,
+  Input,
+  Comment,
+  Avatar,
+  Form
 } from "antd";
 import { withRouter } from "react-router-dom";
-import { likePost, unlikePost } from "../../actions";
+import { likePost, unlikePost, addComment } from "../../actions";
+import CommentsList from "./CommentsList";
 
-const PostsListItem = ({ post, history, setRefresh }) => {
+const PostsListItem = ({ post, history, setRefresh, form }) => {
+  const [showComments, setShowComments] = useState(false);
+  const user = useSelector(state => state.auth.user);
+
   const onItemClick = () => {
     return history.push(`/profile/${post.user}`);
   };
@@ -33,6 +41,25 @@ const PostsListItem = ({ post, history, setRefresh }) => {
     } catch (err) {
       message.error("Something went terribly wrong");
     }
+  };
+
+  const onCommentsClick = () => {
+    setShowComments(true);
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+    form.validateFields(async (err, formValues) => {
+      if (!err) {
+        try {
+          const { text } = formValues;
+          await addComment(post._id, text);
+          setRefresh(true);
+        } catch (err) {
+          message.error("Something went wrong");
+        }
+      }
+    });
   };
 
   return (
@@ -66,16 +93,37 @@ const PostsListItem = ({ post, history, setRefresh }) => {
             </span>
             <span>{post.likes.length} Likes</span>
           </span>
-          <span>
+          <span onClick={onCommentsClick} style={{ cursor: "pointer" }}>
             <span style={{ marginRight: 5 }}>
               <Icon type="pic-left" />
             </span>
-            <span>0 comments</span>
+            <span>{post.comments.length} comments</span>
           </span>
         </div>
       </div>
+      {showComments ? (
+        <div>
+          <CommentsList post={post} setRefresh={setRefresh} />
+          <Comment
+            avatar={<Avatar icon="user" />}
+            author={user.name}
+            content={
+              <Form onSubmit={onSubmit}>
+                <Form.Item>
+                  {form.getFieldDecorator("text", {
+                    rules: [{ required: true }]
+                  })(<Input.TextArea placeholder="Add comment..." />)}
+                </Form.Item>
+                <Button htmlType="submit" type="primary">
+                  Add Comment
+                </Button>
+              </Form>
+            }
+          />
+        </div>
+      ) : null}
     </Card>
   );
 };
 
-export default withRouter(PostsListItem);
+export default withRouter(Form.create()(PostsListItem));

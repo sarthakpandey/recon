@@ -22,3 +22,11 @@ export const likePost = async id => {
 export const unlikePost = async id => {
   await Axios.put(`/api/post/unlike/${id}`);
 };
+
+export const addComment = async (id, text) => {
+  await Axios.post(`/api/post/comment/${id}`, { text });
+};
+
+export const removeComment = async (id, commentId) => {
+  await Axios.delete(`/api/post/comment/${id}/${commentId}`);
+};

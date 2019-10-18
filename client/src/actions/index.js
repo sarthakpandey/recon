@@ -30,7 +30,9 @@ import {
   getAllPosts,
   getPostsFromConnections,
   likePost,
-  unlikePost
+  unlikePost,
+  addComment,
+  removeComment
 } from "./postActions";
 
 export {
@@ -57,5 +59,7 @@ export {
   getAllPosts,
   getPostsFromConnections,
   likePost,
-  unlikePost
+  unlikePost,
+  addComment,
+  removeComment
 };
