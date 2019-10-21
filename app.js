@@ -50,9 +50,8 @@ app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/post", postRouter);
 
-app.use("*", (req, res) => {
-  res.send(`<h1><b>404:</b> Page Not Found</h1>
-    <hr>`);
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
