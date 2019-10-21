@@ -9,6 +9,7 @@ const authRouter = require("./routes/api/authRouter");
 const userRouter = require("./routes/api/userRouter");
 const postRouter = require("./routes/api/postRouter");
 const profileRouter = require("./routes/api/profileRouter");
+const path = require("path");
 
 require("dotenv").config();
 
@@ -43,16 +44,15 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static("client/build"));
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/post", postRouter);
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
 
 const PORT = process.env.PORT || 5000;
 
