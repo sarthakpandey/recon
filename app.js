@@ -44,15 +44,15 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, "client/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
-
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/post", postRouter);
+
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 const PORT = process.env.PORT || 5000;
 
