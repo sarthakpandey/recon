@@ -34,7 +34,7 @@ app.use(
     saveUninitialized: true,
     unset: "destroy",
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    secret: "Rab ke bande"
+    secret: process.env.SECRET
   })
 );
 
@@ -47,6 +47,14 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/post", postRouter);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.use("*", (req, res) => {
+    res.send(`<h1><b>404:</b> Page Not Found</h1>
+    <hr>`);
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
