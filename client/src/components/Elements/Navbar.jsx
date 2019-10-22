@@ -39,7 +39,7 @@ const Navbar = props => {
 
   const { getFieldDecorator } = props.form;
   return (
-    <Layout.Header>
+    <Layout.Header style={{ backgroundColor: "#313131" }}>
       <Row type="flex">
         <Col span={3}>
           <h1 style={{ color: "white" }}>
