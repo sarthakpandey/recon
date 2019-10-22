@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu } from "antd";
+import "NavbarMenu.module.css";
 
 const NavbarMenu = ({ history }) => {
   console.log(history.location.pathname);
@@ -12,7 +13,6 @@ const NavbarMenu = ({ history }) => {
       selectedKeys={[history.location.pathname.split("/")[1]]}
     >
       <Menu.Item
-        style={{ backgroundColor: "#414141" }}
         onClick={() => {
           history.push("/dashboard");
         }}
