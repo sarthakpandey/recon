@@ -13,17 +13,16 @@ const Banner = props => {
         }}
         bordered={false}
       >
-        <Typography.Title
+        <h1
           style={{
             color: "white",
-            fontWeight: "900",
+            fontWeight: "600",
             fontFamily: "Rubik",
-            fontStretch: "extended"
+            letterSpacing: ".2rem"
           }}
-          level={1}
         >
           RECON
-        </Typography.Title>
+        </h1>
         <Typography.Title style={{ color: "white" }} level={3}>
           Connecting students
         </Typography.Title>
