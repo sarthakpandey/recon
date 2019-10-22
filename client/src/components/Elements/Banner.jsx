@@ -16,7 +16,8 @@ const Banner = props => {
         <h1
           style={{
             color: "white",
-            fontWeight: "600",
+            fontWeight: "100",
+            fontSize: 36,
             fontFamily: "Rubik",
             letterSpacing: ".2rem"
           }}
