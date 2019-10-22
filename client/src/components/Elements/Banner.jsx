@@ -14,7 +14,12 @@ const Banner = props => {
         bordered={false}
       >
         <Typography.Title
-          style={{ color: "white", fontWeight: "900", fontFamily: "Rubik" }}
+          style={{
+            color: "white",
+            fontWeight: "900",
+            fontFamily: "Rubik",
+            fontStretch: "extended"
+          }}
           level={1}
         >
           RECON
