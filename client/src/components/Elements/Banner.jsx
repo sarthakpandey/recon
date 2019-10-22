@@ -8,25 +8,37 @@ const Banner = props => {
       <Card
         style={{
           margin: "20px 20px",
-          height: "400px",
-          backgroundColor: "#303F9F"
+          height: "100%",
+          backgroundColor: "#303F9F",
+          color: "white",
+          borderRadius: 10,
+          boxShadow: "15px 15px 5px 0px rgba(0,0,0,0.75)",
+          zIndex: 2
         }}
         bordered={false}
       >
-        <h1
+        <p
           style={{
-            color: "white",
-            fontWeight: "100",
-            fontSize: 36,
+            fontSize: 52,
             fontFamily: "Rubik",
-            letterSpacing: ".2rem"
+            fontWeight: "lighter",
+            letterSpacing: ".2rem",
+            marginBottom: 10
           }}
         >
           RECON
-        </h1>
-        <Typography.Title style={{ color: "white" }} level={3}>
+        </p>
+        <p
+          style={{
+            fontFamily: "Rubik",
+            letterSpacing: ".1rem",
+            fontSize: 28,
+            marginBottom: 10
+          }}
+          level={3}
+        >
           Connecting students
-        </Typography.Title>
+        </p>
         <Button
           type="primary"
           size="large"
