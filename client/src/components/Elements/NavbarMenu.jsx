@@ -8,10 +8,11 @@ const NavbarMenu = ({ history }) => {
     <Menu
       theme="dark"
       mode="horizontal"
-      style={{ lineHeight: "64px" }}
+      style={{ lineHeight: "64px", backgroundColor: "#313131" }}
       selectedKeys={[history.location.pathname.split("/")[1]]}
     >
       <Menu.Item
+        style={{ backgroundColor: "#414141" }}
         onClick={() => {
           history.push("/dashboard");
         }}

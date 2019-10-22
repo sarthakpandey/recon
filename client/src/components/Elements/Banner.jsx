@@ -42,7 +42,7 @@ const Banner = props => {
         <Button
           type="primary"
           size="large"
-          style={{ marginTop: 20, backgroundColor: "$ca3e47" }}
+          style={{ marginTop: 20, backgroundColor: "#ca3e47" }}
           onClick={() => props.history.push("/register")}
         >
           Register Now
