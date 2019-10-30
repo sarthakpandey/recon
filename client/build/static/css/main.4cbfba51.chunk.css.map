@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,KACE,4GAA+G,CAC/G,6BACF","file":"main.4cbfba51.chunk.css","sourcesContent":["body {\r\n  background: url(\"https://images.assetsdelivery.com/compings_v2/yamonstro/yamonstro1412/yamonstro141200025.jpg\");\r\n  background-blend-mode: lighten;\r\n}\r\n"]}
