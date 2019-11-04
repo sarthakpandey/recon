@@ -47,6 +47,10 @@ const PostSchema = new Schema({
       }
     }
   ],
+  sentiment: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now

@@ -9,7 +9,6 @@ const authRouter = require("./routes/api/authRouter");
 const userRouter = require("./routes/api/userRouter");
 const postRouter = require("./routes/api/postRouter");
 const profileRouter = require("./routes/api/profileRouter");
-const sentimentRouter = require("./routes/api/sentimentRouter");
 const path = require("path");
 
 require("dotenv").config();
@@ -49,7 +48,6 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/post", postRouter);
-app.use("/api/sentiment", sentimentRouter);
 
 app.use(express.static(path.join(__dirname, "client/build")));
 app.get("*", (req, res) => {

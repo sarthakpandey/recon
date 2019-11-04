@@ -1,6 +1,9 @@
 const User = require("../models/User");
 const Post = require("../models/Post");
 
+const path = require("path");
+const { spawn } = require("child_process");
+
 const testController = (req, res) => {
   res.json({
     success: "This route is working"
@@ -11,16 +14,28 @@ const createPostController = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
 
-    const newPost = new Post({
-      text: req.body.text,
-      name: user.name,
-      avatar: user.avatar,
-      user: req.user._id
+    function runScript() {
+      return spawn("python", [path.join(__dirname, "connector.py")]);
+    }
+
+    const subprocess = runScript();
+
+    subprocess.stdout.on("data", async data => {
+
+      sentiment = data.toString();
+
+      const newPost = new Post({
+        text: req.body.text,
+        name: user.name,
+        avatar: user.avatar,
+        user: req.user._id,
+        sentiment: sentiment
+      });
+
+      const post = await newPost.save();
+
+      res.json(post);
     });
-
-    const post = await newPost.save();
-
-    res.json(post);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
