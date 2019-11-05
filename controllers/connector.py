@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.externals import joblib
+import sys
 
 #CLeaning the text
 import re
@@ -12,7 +13,8 @@ from nltk.stem.porter import PorterStemmer
 
 TEXT_CLEANING_RE = "@\S+|https?:\S+|http?:\S|[^A-Za-z0-9]+"
 
-post = "Here comes the shadow king"
+post = sys.argv[1]
+path = str(sys.argv[2])
 
 post = re.sub(TEXT_CLEANING_RE, ' ', post)
 post = post.lower()
@@ -23,13 +25,13 @@ post = ' '.join(post)
 
 post = [str(post)]
 
-cv = joblib.load('tfid_vectorizer.pkl')
+cv = joblib.load(path.concat('/tfid_vectorizer.pkl'))
 post = cv.transform(post).toarray()
 
-sc = joblib.load('standard_scalar.pkl')
+sc = joblib.load(path.concat('/standard_scalar.pkl'))
 post = sc.transform(post)
 
-classifier = joblib.load('classifier.pkl')
+classifier = joblib.load(path.concat('/classifier.pkl'))
 sentiment = classifier.predict(post)
 
 print(sentiment)

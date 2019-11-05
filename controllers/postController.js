@@ -15,14 +15,19 @@ const createPostController = async (req, res) => {
     const user = await User.findById(req.user._id).select("-password");
 
     function runScript() {
-      return spawn("python", [path.join(__dirname, "connector.py")]);
+      return spawn("python", [
+        path.join(__dirname, "connector.py"),
+        req.body.text,
+        path.join(__dirname)
+      ]);
     }
 
     const subprocess = runScript();
+    console.log("here");
 
     subprocess.stdout.on("data", async data => {
-
       sentiment = data.toString();
+      console.log(sentiment);
 
       const newPost = new Post({
         text: req.body.text,
