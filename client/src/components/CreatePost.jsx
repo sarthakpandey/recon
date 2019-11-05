@@ -1,19 +1,21 @@
-import React from "react";
-import { Form, Input, Button, message } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, message, Spin, Card } from "antd";
 import { createPost, refreshPosts } from "../actions";
 import { useDispatch } from "react-redux";
 
 const CreatePost = ({ form, onCloseModal }) => {
   const dispatch = useDispatch();
-
+  const [loading, setLoading] = useState(false);
   const onSubmit = e => {
     e.preventDefault();
     form.validateFields(async (err, formProps) => {
       if (!err) {
         try {
+          setLoading(true);
           await createPost(formProps);
           message.success("Post created successfully");
           dispatch(refreshPosts(true));
+          setLoading(false);
           onCloseModal();
         } catch (err) {
           message.error("Something went wrong");
@@ -24,20 +26,22 @@ const CreatePost = ({ form, onCloseModal }) => {
 
   const { getFieldDecorator } = form;
   return (
-    <Form onSubmit={onSubmit}>
-      <Form.Item>
-        {getFieldDecorator("text")(
-          <Input.TextArea
-            size="large"
-            placeholder="Create your post"
-            rows={5}
-          />
-        )}
-      </Form.Item>
-      <Button htmlType="submit" type="primary" shape="round" size="large">
-        Add
-      </Button>
-    </Form>
+    <Card loading={loading}>
+      <Form onSubmit={onSubmit}>
+        <Form.Item>
+          {getFieldDecorator("text")(
+            <Input.TextArea
+              size="large"
+              placeholder="Create your post"
+              rows={5}
+            />
+          )}
+        </Form.Item>
+        <Button htmlType="submit" type="primary" shape="round" size="large">
+          Add
+        </Button>
+      </Form>
+    </Card>
   );
 };
 

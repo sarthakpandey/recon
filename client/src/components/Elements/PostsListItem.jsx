@@ -99,6 +99,7 @@ const PostsListItem = ({ post, history, setRefresh, form }) => {
             </span>
             <span>{post.comments.length} comments</span>
           </span>
+          <span>{post.sentiment.slice(2, -2)}</span>
         </div>
       </div>
       {showComments ? (
