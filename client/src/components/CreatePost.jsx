@@ -1,8 +1,11 @@
 import React from "react";
 import { Form, Input, Button, message } from "antd";
-import { createPost } from "../actions";
+import { createPost, refreshPosts } from "../actions";
+import { useDispatch } from "react-redux";
 
 const CreatePost = ({ form, onCloseModal }) => {
+  const dispatch = useDispatch();
+
   const onSubmit = e => {
     e.preventDefault();
     form.validateFields(async (err, formProps) => {
@@ -10,6 +13,7 @@ const CreatePost = ({ form, onCloseModal }) => {
         try {
           await createPost(formProps);
           message.success("Post created successfully");
+          dispatch(refreshPosts(true));
           onCloseModal();
         } catch (err) {
           message.error("Something went wrong");

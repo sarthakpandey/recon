@@ -32,7 +32,8 @@ import {
   likePost,
   unlikePost,
   addComment,
-  removeComment
+  removeComment,
+  refreshPosts
 } from "./postActions";
 
 export {
@@ -61,5 +62,6 @@ export {
   likePost,
   unlikePost,
   addComment,
-  removeComment
+  removeComment,
+  refreshPosts
 };

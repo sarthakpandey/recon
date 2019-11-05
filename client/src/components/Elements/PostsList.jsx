@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Card, List } from "antd";
-import { getAllPosts, getPostsFromConnections } from "../../actions";
+import {
+  getAllPosts,
+  getPostsFromConnections,
+  refreshPosts
+} from "../../actions";
 import PostsListItem from "./PostsListItem";
+import { useSelector, useDispatch } from "react-redux";
 
 const PostsList = ({ type }) => {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
   const [refresh, setRefresh] = useState(true);
+
+  const reduxRefresh = useSelector(state => state.refresh);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +40,9 @@ const PostsList = ({ type }) => {
     if (refresh) {
       fetchData();
       setRefresh(false);
+    } else if (reduxRefresh) {
+      fetchData();
+      dispatch(refreshPosts(false));
     }
   }, [type, refresh]);
 
