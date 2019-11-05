@@ -23,11 +23,9 @@ const createPostController = async (req, res) => {
     }
 
     const subprocess = runScript();
-    console.log("here");
 
-    subprocess.stdout.on("data", async data => {
+    await subprocess.stdout.on("data", async data => {
       sentiment = data.toString();
-      console.log(sentiment);
 
       const newPost = new Post({
         text: req.body.text,

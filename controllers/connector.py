@@ -1,6 +1,8 @@
 import numpy as np
 from sklearn.externals import joblib
 import sys
+import os
+from pathlib import Path
 
 #CLeaning the text
 import re
@@ -11,10 +13,14 @@ nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
+
 TEXT_CLEANING_RE = "@\S+|https?:\S+|http?:\S|[^A-Za-z0-9]+"
 
-post = sys.argv[1]
-path = str(sys.argv[2])
+post = str(sys.argv[1])
+
+path = Path(sys.argv[2])
+
+os.chdir(path)
 
 post = re.sub(TEXT_CLEANING_RE, ' ', post)
 post = post.lower()
@@ -25,13 +31,13 @@ post = ' '.join(post)
 
 post = [str(post)]
 
-cv = joblib.load(path.concat('/tfid_vectorizer.pkl'))
-post = cv.transform(post).toarray()
+tv = joblib.load('tfid_vectorizer.pkl')
+post = tv.transform(post).toarray()
 
-sc = joblib.load(path.concat('/standard_scalar.pkl'))
+sc = joblib.load('standard_scalar.pkl')
 post = sc.transform(post)
 
-classifier = joblib.load(path.concat('/classifier.pkl'))
+classifier = joblib.load('classifier.pkl')
 sentiment = classifier.predict(post)
 
 print(sentiment)
