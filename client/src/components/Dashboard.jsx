@@ -10,6 +10,7 @@ import PostsList from "./Elements/PostsList";
 const Dashboard = ({ user }) => {
   const [modal, setModal] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const onModalClose = () => {
     setShowModal(false);
@@ -36,7 +37,12 @@ const Dashboard = ({ user }) => {
         <Card>
           <Row gutter={48}>
             <Col span={12}>
-              <Button type="primary" size="large" onClick={onCreateClick}>
+              <Button
+                type="primary"
+                size="large"
+                onClick={onCreateClick}
+                setRefresh={setRefresh}
+              >
                 Create Post
               </Button>
             </Col>
@@ -68,10 +74,18 @@ const Dashboard = ({ user }) => {
           <Row style={{ marginTop: 20 }}>
             <Tabs>
               <Tabs.TabPane key="conn" tab="Posts from connections">
-                <PostsList type="conn" />
+                <PostsList
+                  type="conn"
+                  refresh={refresh}
+                  setRefresh={setRefresh}
+                />
               </Tabs.TabPane>
               <Tabs.TabPane key="all" tab="All posts">
-                <PostsList type="all" />2
+                <PostsList
+                  type="all"
+                  refresh={refresh}
+                  setRefresh={setRefresh}
+                />
               </Tabs.TabPane>
             </Tabs>
           </Row>

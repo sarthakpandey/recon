@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Form, Input, Button, message, Spin, Card } from "antd";
 import { createPost, refreshPosts } from "../actions";
-import { useDispatch } from "react-redux";
 
-const CreatePost = ({ form, onCloseModal }) => {
-  const dispatch = useDispatch();
+const CreatePost = ({ form, onCloseModal, setRefresh }) => {
   const [loading, setLoading] = useState(false);
   const onSubmit = e => {
     e.preventDefault();
@@ -14,7 +12,7 @@ const CreatePost = ({ form, onCloseModal }) => {
           setLoading(true);
           await createPost(formProps);
           message.success("Post created successfully");
-          dispatch(refreshPosts(true));
+          setRefresh(true);
           setLoading(false);
           onCloseModal();
         } catch (err) {

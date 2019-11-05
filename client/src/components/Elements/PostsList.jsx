@@ -1,26 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Card, List } from "antd";
-import {
-  getAllPosts,
-  getPostsFromConnections,
-  refreshPosts
-} from "../../actions";
+import { getAllPosts, getPostsFromConnections } from "../../actions";
 import PostsListItem from "./PostsListItem";
-import { useSelector, useDispatch } from "react-redux";
 
-const PostsList = ({ type }) => {
+const PostsList = props => {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
   const [refresh, setRefresh] = useState(true);
-
-  const reduxRefresh = useSelector(state => state.refresh);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       let response = null;
       try {
-        switch (type) {
+        switch (props.type) {
           case "all":
             response = await getAllPosts();
             setList(response.data);
@@ -40,11 +32,11 @@ const PostsList = ({ type }) => {
     if (refresh) {
       fetchData();
       setRefresh(false);
-    } else if (reduxRefresh) {
+    } else if (props.refresh) {
+      props.setRefresh(false);
       fetchData();
-      dispatch(refreshPosts(false));
     }
-  }, [type, refresh]);
+  }, [props.type, refresh, props.refresh]);
 
   return (
     <Card loading={loading}>
