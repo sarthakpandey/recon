@@ -44,7 +44,7 @@ const PostsList = ({ type }) => {
       fetchData();
       dispatch(refreshPosts(false));
     }
-  }, [type, refresh, reduxRefresh]);
+  }, [type, refresh]);
 
   return (
     <Card loading={loading}>
