@@ -16,6 +16,7 @@ const CreatePost = ({ form, onCloseModal, setRefresh }) => {
           setLoading(false);
           onCloseModal();
         } catch (err) {
+          console.log(err);
           message.error("Something went wrong");
         }
       }

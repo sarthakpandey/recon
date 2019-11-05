@@ -37,12 +37,7 @@ const Dashboard = ({ user }) => {
         <Card>
           <Row gutter={48}>
             <Col span={12}>
-              <Button
-                type="primary"
-                size="large"
-                onClick={onCreateClick}
-                setRefresh={setRefresh}
-              >
+              <Button type="primary" size="large" onClick={onCreateClick}>
                 Create Post
               </Button>
             </Col>
@@ -108,7 +103,7 @@ const Dashboard = ({ user }) => {
           {modal === "experience" ? (
             <AddExperience />
           ) : modal === "create" ? (
-            <CreatePost onCloseModal={onModalClose} />
+            <CreatePost onCloseModal={onModalClose} setRefresh={setRefresh} />
           ) : (
             <AddEducation />
           )}
