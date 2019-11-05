@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm install && npm run build",
-    "start": "concurrently \"npm install && node app.js\" \"npm run client\""
+    "start": "npm install && node app.js"
   },
   "author": "rab ke bnde",
   "license": "ISC",
