@@ -101,7 +101,7 @@ const PostsListItem = ({ post, history, setRefresh, form }) => {
             </span>
             <span>{post.comments.length} comments</span>
           </span>
-          <span style={{ marginLeft: 24, fontWeight: "bold", backgroundColor: sentiment === 'POSITIVE' ? 'green' : 'red', color: 'white' }}>
+          <span style={{ marginLeft: 24, fontWeight: "bold", padding: 5, backgroundColor: sentiment === 'POSITIVE' ? 'green' : 'red', color: 'white' }}>
             {sentiment}
           </span>
         </div>

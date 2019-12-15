@@ -9,6 +9,7 @@ const PostsList = props => {
   const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
+    console.log('here')
     const fetchData = async () => {
       let response = null;
       try {
