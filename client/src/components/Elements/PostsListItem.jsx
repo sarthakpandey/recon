@@ -62,6 +62,8 @@ const PostsListItem = ({ post, history, setRefresh, form }) => {
     });
   };
 
+  const sentiment = post.sentiment.slice(2, -3)
+
   return (
     <Card
       style={{ width: "100%" }}
@@ -99,8 +101,8 @@ const PostsListItem = ({ post, history, setRefresh, form }) => {
             </span>
             <span>{post.comments.length} comments</span>
           </span>
-          <span style={{ marginLeft: 24, fontWeight: "bold" }}>
-            {post.sentiment.slice(2, -3)}
+          <span style={{ marginLeft: 24, fontWeight: "bold", backgroundColor: sentiment === 'POSITIVE' ? 'green' : 'red', color: 'white' }}>
+            {sentiment}
           </span>
         </div>
       </div>
